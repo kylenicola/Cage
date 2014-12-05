@@ -75,11 +75,11 @@ public class AbcsWithNic extends Activity
 	             {
 	                long aTime = System.currentTimeMillis();
 	                
-	                if (aTime - startTime <= 2000)
+	                if (startTime - aTime < 2000)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (aTime-startTime <= 1600)
+	                else if (startTime - aTime <= 1600)
 	                {
 	
 	                	playerScore += 50;
@@ -92,11 +92,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long bTime = System.currentTimeMillis();
-	                if (bTime - startTime  <= 2200)
+	                if (startTime - bTime <= 2200)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (bTime - startTime  <= 2300)
+	                else if (startTime - bTime  <= 2300)
 	                {
 	                	playerScore += 50;
 	                }
@@ -108,12 +108,12 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long cTime = System.currentTimeMillis();
-	                if (cTime - startTime <= 2300)
+	                if (startTime - cTime <= 2300)
 	                {
 	                	playerScore += 100;
 	                	
 	                }
-	                else if (cTime - startTime <= 2400)
+	                else if (startTime - cTime <= 2400)
 	                {
 	                	playerScore += 50;
 	                }
@@ -125,11 +125,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long dTime = System.currentTimeMillis();
-	                if (dTime - startTime <= 2450)
+	                if (startTime - dTime <= 2450)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (dTime - startTime <= 2550)
+	                else if (startTime - dTime <= 2550)
 	                {
 	                	playerScore += 50;
 	                }
@@ -141,11 +141,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long eTime = System.currentTimeMillis();
-	                if (eTime - startTime <= 2500)
+	                if (startTime - eTime <= 2500)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (eTime - startTime <= 2600)
+	                else if (startTime - eTime <= 2600)
 	                {
 	                	playerScore += 50;
 	                }
@@ -157,11 +157,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long fTime = System.currentTimeMillis();
-	                if (fTime - startTime <= 3400)
+	                if (startTime - fTime <= 3400)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (fTime - startTime <= 3500)
+	                else if (startTime - fTime <= 3500)
 	                {
 	                	playerScore += 50;
 	                }
@@ -173,11 +173,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long gTime = System.currentTimeMillis();
-	                if (gTime - startTime <= 3300)
+	                if (startTime - gTime <= 3300)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (gTime - startTime <= 3400)
+	                else if (startTime - gTime <= 3400)
 	                {
 	                	playerScore += 50;
 	                }
@@ -189,11 +189,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long hTime = System.currentTimeMillis();
-	                if (hTime - startTime <= 3450)
+	                if (startTime - hTime <= 3450)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (hTime - startTime <= 3550)
+	                else if (startTime - hTime <= 3550)
 	                {
 	                	playerScore += 50;
 	                }
@@ -205,11 +205,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long iTime = System.currentTimeMillis();
-	                if (iTime - startTime <= 3550)
+	                if (startTime - iTime <= 3550)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (iTime - startTime <= 3650)
+	                else if (startTime - iTime <= 3650)
 	                {
 	                	playerScore += 50;
 	                }
@@ -221,11 +221,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long jTime = System.currentTimeMillis();
-	                if (jTime - startTime <= 4200)
+	                if (startTime - jTime <= 4200)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (jTime - startTime <= 4300)
+	                else if (startTime - jTime <= 4300)
 	                {
 	                	playerScore += 50;
 	                }
@@ -237,11 +237,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long kTime = System.currentTimeMillis();
-	                if (kTime - startTime <= 4350)
+	                if (startTime - kTime <= 4350)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (kTime - startTime <= 4450)
+	                else if (startTime - kTime <= 4450)
 	                {
 	                	playerScore += 50;
 	                }
@@ -253,11 +253,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long lTime = System.currentTimeMillis();
-	                if (lTime - startTime <= 4400)
+	                if (startTime - lTime <= 4400)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (lTime - startTime <= 4500)
+	                else if (startTime - lTime <= 4500)
 	                {
 	                	playerScore += 50;
 	                }
@@ -269,11 +269,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long mTime = System.currentTimeMillis();
-	                if (mTime - startTime <= 4450)
+	                if (startTime - mTime <= 4450)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (mTime - startTime <= 4550)
+	                else if (startTime - mTime <= 4550)
 	                {
 	                	playerScore += 50;
 	                }
@@ -285,11 +285,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long nTime = System.currentTimeMillis();
-	                if (nTime - startTime <= 4500)
+	                if (startTime - nTime <= 4500)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (nTime - startTime <= 4600)
+	                else if (startTime - nTime <= 4600)
 	                {
 	                	playerScore += 50;
 	                }
@@ -301,11 +301,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long oTime = System.currentTimeMillis();
-	                if (oTime - startTime <= 4750)
+	                if (startTime - oTime <= 4750)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (oTime - startTime <= 4850)
+	                else if (startTime - oTime <= 4850)
 	                {
 	                	playerScore += 50;
 	                }
@@ -317,11 +317,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long pTime = System.currentTimeMillis();
-	                if (pTime - startTime <= 5200)
+	                if (startTime - pTime <= 5200)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (pTime - startTime <= 5300)
+	                else if (startTime - pTime <= 5300)
 	                {
 	                	playerScore += 50;
 	                }
@@ -333,11 +333,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long qTime = System.currentTimeMillis();
-	                if (qTime - startTime <= 5300)
+	                if (startTime - qTime <= 5300)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (qTime - startTime <= 5400)
+	                else if (startTime - qTime <= 5400)
 	                {
 	                	playerScore += 50;
 	                }
@@ -349,11 +349,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long rTime = System.currentTimeMillis();
-	                if (rTime - startTime <= 5400)
+	                if (startTime - rTime <= 5400)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (rTime - startTime <= 5500)
+	                else if (startTime - rTime <= 5500)
 	                {
 	                	playerScore += 50;
 	                }
@@ -365,11 +365,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long sTime = System.currentTimeMillis();
-	                if (sTime - startTime <= 5500)
+	                if (startTime - sTime <= 5500)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (sTime - startTime <= 5600)
+	                else if (startTime - sTime <= 5600)
 	                {
 	                	playerScore += 50;
 	                }
@@ -381,11 +381,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long tTime = System.currentTimeMillis();
-	                if (tTime - startTime <= 6200)
+	                if (startTime - tTime <= 6200)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (tTime - startTime <= 6300)
+	                else if (startTime - tTime <= 6300)
 	                {
 	                	playerScore += 50;
 	                }
@@ -397,11 +397,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long uTime = System.currentTimeMillis();
-	                if (uTime - startTime <= 6300)
+	                if (startTime - uTime <= 6300)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (uTime - startTime <= 6400)
+	                else if (startTime - uTime <= 6400)
 	                {
 	                	playerScore += 50;
 	                }
@@ -413,11 +413,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long vTime = System.currentTimeMillis();
-	                if (vTime - startTime <= 6350)
+	                if (startTime - vTime <= 6350)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (vTime - startTime <= 6450)
+	                else if (startTime - vTime <= 6450)
 	                {
 	                	playerScore += 50;
 	                }
@@ -429,11 +429,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long wTime = System.currentTimeMillis();
-	                if (wTime - startTime <= 6400)
+	                if (startTime - wTime <= 6400)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (wTime - startTime <= 6500)
+	                else if (startTime - wTime <= 6500)
 	                {
 	                	playerScore += 50;
 	                }
@@ -445,11 +445,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long xTime = System.currentTimeMillis();
-	                if (xTime - startTime <= 6500)
+	                if (startTime - xTime <= 6500)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (xTime - startTime <= 6600)
+	                else if (startTime - xTime <= 6600)
 	                {
 	                	playerScore += 50;
 	                }
@@ -461,11 +461,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long yTime = System.currentTimeMillis();
-	                if (yTime - startTime <= 7150)
+	                if (startTime - yTime <= 7150)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (yTime - startTime <= 7350)
+	                else if (startTime - yTime <= 7350)
 	                {
 	                	playerScore += 50;
 	                }
@@ -477,11 +477,11 @@ public class AbcsWithNic extends Activity
 	             public void onClick(View v) 
 	             {
 	                long zTime = System.currentTimeMillis();
-	                if (zTime - startTime <= 7200)
+	                if (startTime - zTime <= 7200)
 	                {
 	                	playerScore += 100;
 	                }
-	                else if (zTime - startTime <= 7300)
+	                else if (startTime - zTime <= 7300)
 	                {
 	                	playerScore += 50;
 	                }
@@ -508,6 +508,4 @@ public class AbcsWithNic extends Activity
 	   }
 	   
 }
-
-
 
