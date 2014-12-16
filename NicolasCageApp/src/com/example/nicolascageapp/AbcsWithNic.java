@@ -1,5 +1,7 @@
 package com.example.nicolascageapp;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;
@@ -21,6 +23,73 @@ public class AbcsWithNic extends Activity
 {
 	   VideoView myVideoView;
 	   public int playerScore;
+	   
+	   private long startTime = 0;
+	   private long differenceTime = 0;
+	   
+	   private Map<Integer, Integer> letterTimes = new HashMap<Integer, Integer>();
+	   private Map<Integer, Boolean> letterClicked = new HashMap<Integer, Boolean>();
+	   
+	   private int[] letters = {R.id.ButtonA, R.id.ButtonB, R.id.ButtonC,
+			   R.id.ButtonD, R.id.ButtonE, R.id.ButtonF,
+			   R.id.ButtonG, R.id.ButtonH, R.id.ButtonI,
+			   R.id.ButtonJ, R.id.ButtonK, R.id.ButtonL,
+			   R.id.ButtonM, R.id.ButtonN, R.id.ButtonO,
+			   R.id.ButtonP, R.id.ButtonQ, R.id.ButtonR,
+			   R.id.ButtonS, R.id.ButtonT, R.id.ButtonU,
+			   R.id.ButtonV, R.id.ButtonW, R.id.ButtonX,
+			   R.id.ButtonY, R.id.ButtonZ};
+	   private int[] times = {R.integer.TimeA, R.integer.TimeB, R.integer.TimeC, 
+			   R.integer.TimeD, R.integer.TimeE, R.integer.TimeF,
+			   R.integer.TimeG, R.integer.TimeH, R.integer.TimeI,
+			   R.integer.TimeJ, R.integer.TimeK, R.integer.TimeL,
+			   R.integer.TimeM, R.integer.TimeN, R.integer.TimeO,
+			   R.integer.TimeP, R.integer.TimeQ, R.integer.TimeR,
+			   R.integer.TimeS, R.integer.TimeT, R.integer.TimeU,
+			   R.integer.TimeV, R.integer.TimeW, R.integer.TimeX,
+			   R.integer.TimeY, R.integer.TimeZ};
+	   
+	   private final int NUM_LETTERS = 26;
+	   
+	   private void fillLetterTimes()
+	   {		   		   
+		   assert(times.length == letters.length && times.length == 26);
+		   for(int i = 0; i < NUM_LETTERS; i++)
+		   {
+			   letterTimes.put(letters[i], times[i]);
+		   }		   
+	   }
+	   
+	   private void fillClicked()
+	   {
+		   for(int i = 0; i < NUM_LETTERS; i++)
+		   {
+			   letterClicked.put(letters[i], false);
+		   }
+	   }
+	   
+	   
+	   public void onLetterClick(View v)
+	   {
+		   int letter = v.getId();
+		   int score = 0;
+		   differenceTime = Math.abs((System.currentTimeMillis() - startTime) - letterTimes.get(letter));
+
+		   if(differenceTime < 500)
+		   {
+			   score = 100;
+		   }
+		   else if(differenceTime < 1000)
+		   {
+			   score = 50;
+		   }
+		   else
+		   {
+			   score = -25;
+		   }
+
+		   // do something with score
+	   }
 	 
 	   /** Called when the activity is first created. */
 	   @Override
@@ -37,7 +106,9 @@ public class AbcsWithNic extends Activity
 	       myVideoView.setMediaController(new MediaController(this));
 	       myVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.abcs_video));
 	       myVideoView.start();
-	       final long startTime = System.nanoTime();
+	       
+	       startTime = System.currentTimeMillis();
+	       
 	       myVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() 
 	       {
 	    	   @Override
@@ -327,7 +398,7 @@ public class AbcsWithNic extends Activity
 	                }
 	             }
 	         });
-	         final Button keyQ = (Button) findViewById(R.id.buttonQ);
+	         final Button keyQ = (Button) findViewById(R.id.ButtonQ);
 	         keyQ.setOnClickListener(new View.OnClickListener() 
 	         {
 	             public void onClick(View v) 
@@ -501,11 +572,5 @@ public class AbcsWithNic extends Activity
 			Intent intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 	   }
-	   
-	   public void backToMain(View view) {
-			Intent intent = new Intent(this, MainActivity.class);
-			startActivity(intent);
-	   }
-	   
 }
 

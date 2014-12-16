@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="TimeA">2000</integer>
+    <integer name="TimeB">2200</integer>
+    <integer name="TimeC">2300</integer>
+    <integer name="TimeD">2450</integer>
+    <integer name="TimeE">2500</integer>
+    <integer name="TimeF">3400</integer>
+    <integer name="TimeG">0</integer>
+    <integer name="TimeH">0</integer>
+    <integer name="TimeI">0</integer>
+    <integer name="TimeJ">0</integer>
+    <integer name="TimeK">0</integer>
+    <integer name="TimeL">0</integer>
+    <integer name="TimeM">0</integer>
+    <integer name="TimeN">0</integer>
+    <integer name="TimeO">0</integer>
+    <integer name="TimeP">0</integer>
+    <integer name="TimeQ">0</integer>
+    <integer name="TimeR">0</integer>
+    <integer name="TimeS">0</integer>
+    <integer name="TimeT">0</integer>
+    <integer name="TimeU">0</integer>
+    <integer name="TimeV">0</integer>
+    <integer name="TimeW">0</integer>
+    <integer name="TimeX">0</integer>
+    <integer name="TimeY">0</integer>
+    <integer name="TimeZ">0</integer>
+</resources>

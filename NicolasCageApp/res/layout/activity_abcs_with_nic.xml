@@ -32,7 +32,7 @@
             android:gravity="bottom|center" >
 
             <Button
-                android:id="@+id/buttonQ"
+                android:id="@+id/ButtonQ"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="32dp"
                 android:layout_height="40dp"
@@ -52,9 +52,9 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="32dp"
                 android:layout_height="40dp"
-                android:layout_alignBaseline="@+id/buttonQ"
-                android:layout_alignBottom="@+id/buttonQ"
-                android:layout_toRightOf="@+id/buttonQ"
+                android:layout_alignBaseline="@+id/ButtonQ"
+                android:layout_alignBottom="@+id/ButtonQ"
+                android:layout_toRightOf="@+id/ButtonQ"
                 android:textColor="@color/keyboard_letter"
                 android:text="W"
                 android:textStyle="bold"
@@ -279,7 +279,7 @@
                 android:layout_below="@+id/ButtonA"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/buttonQ"
+                android:layout_toRightOf="@+id/ButtonQ"
                 android:text="Z" />
 
             <Button
