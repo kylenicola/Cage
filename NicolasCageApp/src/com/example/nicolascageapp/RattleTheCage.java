@@ -58,8 +58,10 @@ public class RattleTheCage extends Activity {
 
 				if(totalDuration > (sixth_time * 1000))
 				{
+					
 					Intent intent = new Intent(RattleTheCage.this, RattleTheCageVideo.class);
 					startActivity(intent);
+					
 					// Move to video activity
 				}
 				else if(totalDuration > (fifth_time * 1000))
@@ -193,6 +195,25 @@ public class RattleTheCage extends Activity {
 			mSounds = null;
 		}
 		super.onPause();
+	}
+	
+	@Override
+	protected void onStop()
+	{
+		mSensorManager.unregisterListener(mSensorListener);
+		
+		if(mSounds != null) {
+			mSounds.release();
+			mSounds = null;
+		}
+		super.onStop();
+	}
+	
+	@Override 
+	protected void onStart()
+	{
+		createSoundPool();
+		mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
 	}
 	
 

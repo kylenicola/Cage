@@ -24,6 +24,10 @@ public class RattleTheCageScore extends Activity {
 		TextView mostRecentScore = (TextView) findViewById(R.id.mostRecentScoreRattle);
 		int most_recent_score = prefs.getInt("rattle_most_recent_score", 0);
 		
+		int hi_score_two = prefs.getInt("rattle_hi_score", 0);
+		TextView hiScoreTwo = (TextView)findViewById(R.id.hiScoreRattle);
+		hiScoreTwo.setText(Integer.toString(hi_score_two));
+		
 		mostRecentScore.setText(Integer.toString(most_recent_score));
 		
 		if(prefs.getInt("rattle_hi_score", 0) < most_recent_score) {
