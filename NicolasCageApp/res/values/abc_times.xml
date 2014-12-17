@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="TimeA">2000</integer>
-    <integer name="TimeB">2200</integer>
-    <integer name="TimeC">2300</integer>
-    <integer name="TimeD">2450</integer>
-    <integer name="TimeE">2500</integer>
+    <integer name="TimeA">2035</integer>
+    <integer name="TimeB">2402</integer>
+    <integer name="TimeC">2970</integer>
+    <integer name="TimeD">3470</integer>
+    <integer name="TimeE">3971</integer>
     <integer name="TimeF">3400</integer>
     <integer name="TimeG">0</integer>
     <integer name="TimeH">0</integer>

@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,11 +27,14 @@ public class AbcsWithNic extends Activity
 	   VideoView myVideoView;
 	   public int playerScore;
 	   
-	   private long startTime = 0;
-	   private long differenceTime = 0;
+	   private int currentPosition = 0;
+	   private int differenceTime = 0;
 	   
 	   private Map<Integer, Integer> letterTimes = new HashMap<Integer, Integer>();
 	   private Map<Integer, Boolean> letterClicked = new HashMap<Integer, Boolean>();
+	   
+	   private Vibrator vibrator;
+	   private long buttonVibrateTime = 100;
 	   
 	   private int[] letters = {R.id.ButtonA, R.id.ButtonB, R.id.ButtonC,
 			   R.id.ButtonD, R.id.ButtonE, R.id.ButtonF,
@@ -65,10 +69,14 @@ public class AbcsWithNic extends Activity
 	   
 	   public void onLetterClick(View v)
 	   {
+		   // Vibrate for touch
+		   vibrator.vibrate(buttonVibrateTime);
+		   
 		   int letter = v.getId();
-		   long current = System.currentTimeMillis();
 		   int score = 0;
-		   differenceTime = Math.abs((current - startTime) - letterTimes.get(letter));
+		   
+		   currentPosition = myVideoView.getCurrentPosition();
+		   differenceTime = Math.abs(currentPosition - letterTimes.get(letter));
 
 		   if(differenceTime < 500)
 		   {
@@ -92,13 +100,10 @@ public class AbcsWithNic extends Activity
 		   }
 		   
 
-		   Log.d("abcs", "Start time: " + String.valueOf(startTime));
-		   Log.d("abcs", "Current time: " + String.valueOf(current));
+		   Log.d("abcs", "Difference time: " + String.valueOf(differenceTime));
 		   Log.d("abcs", "Letter time: " + String.valueOf(letterTimes.get(letter)));
-		   Log.d("abcs", "letter A: " + String.valueOf(R.id.ButtonA));
-		   Log.d("abcs", "letter pressed: " + String.valueOf(letter));
-		   Log.d("abcs", "abc_times TimeA: " + String.valueOf(R.integer.TimeA));
-		   Log.d("abcs", "times[0] time: " + String.valueOf(times[0]));
+		   Log.d("abcs", "Progress: " + String.valueOf(myVideoView.getCurrentPosition()));
+
 		   // update player score
 		   playerScore += score;
 		   
@@ -110,6 +115,8 @@ public class AbcsWithNic extends Activity
 	   public void onCreate(Bundle savedInstanceState) 
 	   {
 	       super.onCreate(savedInstanceState);
+	       
+	       vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 	      
 	       setContentView(R.layout.activity_abcs_with_nic);
 	       getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -117,11 +124,11 @@ public class AbcsWithNic extends Activity
 	       final SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
 	       
 	       myVideoView = (VideoView)findViewById(R.id.abcs_videoView);
-	       myVideoView.setMediaController(new MediaController(this));
+	       // myVideoView.setMediaController(new MediaController(this));
 	       myVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.abcs_video));
 	       myVideoView.start();
 	       
-	       startTime = System.currentTimeMillis();
+	       
 	       fillLetterTimesAndClicked();
 	       
 	       myVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() 
