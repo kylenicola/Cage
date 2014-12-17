@@ -45,7 +45,8 @@
                 android:gravity="center"
                 android:text="Q"
                 android:textStyle="bold"
-                android:typeface="monospace" />
+                android:typeface="monospace"
+                android:onClick="onLetterClick" />
 
             <Button
                 android:id="@+id/ButtonW"
@@ -58,6 +59,7 @@
                 android:textColor="@color/keyboard_letter"
                 android:text="W"
                 android:textStyle="bold"
+                android:onClick="onLetterClick"
         		android:typeface="monospace" />
 
             <Button
@@ -71,6 +73,7 @@
                 android:layout_alignBaseline="@+id/ButtonW"
                 android:layout_alignBottom="@+id/ButtonW"
                 android:layout_toRightOf="@+id/ButtonW"
+                android:onClick="onLetterClick"
                 android:text="E" />
 
             <Button
@@ -84,6 +87,7 @@
                 android:layout_alignBaseline="@+id/ButtonE"
                 android:layout_alignBottom="@+id/ButtonE"
                 android:layout_toRightOf="@+id/ButtonE"
+                android:onClick="onLetterClick"
                 android:text="R" />
 
             <Button
@@ -97,6 +101,7 @@
                 android:layout_alignBaseline="@+id/ButtonR"
                 android:layout_alignBottom="@+id/ButtonR"
                 android:layout_toRightOf="@+id/ButtonR"
+                android:onClick="onLetterClick"
                 android:text="T" />
 
             <Button
@@ -110,6 +115,7 @@
                 android:layout_alignBaseline="@+id/ButtonT"
                 android:layout_alignBottom="@+id/ButtonT"
                 android:layout_toRightOf="@+id/ButtonT"
+                android:onClick="onLetterClick"
                 android:text="Y" />
 
             <Button
@@ -123,6 +129,7 @@
                 android:layout_alignBaseline="@+id/ButtonY"
                 android:layout_alignBottom="@+id/ButtonY"
                 android:layout_toRightOf="@+id/ButtonY"
+                android:onClick="onLetterClick"
                 android:text="U" />
 
             <Button
@@ -136,6 +143,7 @@
                 android:layout_alignBaseline="@+id/ButtonU"
                 android:layout_alignBottom="@+id/ButtonU"
                 android:layout_toRightOf="@+id/ButtonU"
+                android:onClick="onLetterClick"
                 android:text="I" />
 
             <Button
@@ -149,6 +157,7 @@
                 android:layout_alignBaseline="@+id/ButtonI"
                 android:layout_alignBottom="@+id/ButtonI"
                 android:layout_toRightOf="@+id/ButtonI"
+                android:onClick="onLetterClick"
                 android:text="O" />
 
             <Button
@@ -163,6 +172,7 @@
                 android:layout_below="@+id/ButtonW"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="2dp"
+                android:onClick="onLetterClick"
                 android:text="A" />
 
             <Button
@@ -176,6 +186,7 @@
                 android:layout_alignBaseline="@+id/ButtonS"
                 android:layout_alignBottom="@+id/ButtonS"
                 android:layout_toRightOf="@+id/ButtonS"
+                android:onClick="onLetterClick"
                 android:text="D" />
 
             <Button
@@ -188,6 +199,7 @@
         		android:textColor="@color/keyboard_letter"
                 android:layout_alignTop="@+id/ButtonA"
                 android:layout_toRightOf="@+id/ButtonA"
+                android:onClick="onLetterClick"
                 android:text="S" />
 
             <Button
@@ -201,6 +213,7 @@
                 android:layout_alignBaseline="@+id/ButtonD"
                 android:layout_alignBottom="@+id/ButtonD"
                 android:layout_toRightOf="@+id/ButtonD"
+                android:onClick="onLetterClick"
                 android:text="F" />
 
             <Button
@@ -214,6 +227,7 @@
                 android:layout_alignBaseline="@+id/ButtonF"
                 android:layout_alignBottom="@+id/ButtonF"
                 android:layout_toRightOf="@+id/ButtonF"
+                android:onClick="onLetterClick"
                 android:text="G" />
 
             <Button
@@ -227,6 +241,7 @@
                 android:layout_alignBaseline="@+id/ButtonG"
                 android:layout_alignBottom="@+id/ButtonG"
                 android:layout_toRightOf="@+id/ButtonG"
+                android:onClick="onLetterClick"
                 android:text="H" />
 
             <Button
@@ -240,6 +255,7 @@
                 android:layout_alignBaseline="@+id/ButtonH"
                 android:layout_alignBottom="@+id/ButtonH"
                 android:layout_toRightOf="@+id/ButtonH"
+                android:onClick="onLetterClick"
                 android:text="J" />
 
             <Button
@@ -253,6 +269,7 @@
                 android:layout_alignBaseline="@+id/ButtonJ"
                 android:layout_alignBottom="@+id/ButtonJ"
                 android:layout_toRightOf="@+id/ButtonJ"
+                android:onClick="onLetterClick"
                 android:text="K" />
 
             <Button
@@ -266,6 +283,7 @@
                 android:layout_alignBaseline="@+id/ButtonK"
                 android:layout_alignBottom="@+id/ButtonK"
                 android:layout_toRightOf="@+id/ButtonK"
+                android:onClick="onLetterClick"
                 android:text="L" />
 
             <Button
@@ -280,6 +298,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/ButtonQ"
+                android:onClick="onLetterClick"
                 android:text="Z" />
 
             <Button
@@ -294,6 +313,7 @@
                 android:layout_alignBottom="@+id/ButtonX"
                 android:layout_alignParentLeft="false"
                 android:layout_toRightOf="@+id/ButtonX"
+                android:onClick="onLetterClick"
                 android:text="C" />
 
             <Button
@@ -307,6 +327,7 @@
                 android:layout_alignBaseline="@+id/ButtonV"
                 android:layout_alignBottom="@+id/ButtonV"
                 android:layout_toRightOf="@+id/ButtonV"
+                android:onClick="onLetterClick"
                 android:text="B" />
 
             <Button
@@ -320,6 +341,7 @@
                 android:layout_alignBaseline="@+id/ButtonN"
                 android:layout_alignBottom="@+id/ButtonN"
                 android:layout_toRightOf="@+id/ButtonN"
+                android:onClick="onLetterClick"
                 android:text="M" />
 
             <Button
@@ -334,6 +356,7 @@
                 android:layout_alignBottom="@+id/ButtonZ"
                 android:layout_alignParentLeft="false"
                 android:layout_toRightOf="@+id/ButtonZ"
+                android:onClick="onLetterClick"
                 android:text="X" />
 
             <Button
@@ -347,6 +370,7 @@
                 android:layout_alignBaseline="@+id/ButtonB"
                 android:layout_alignBottom="@+id/ButtonB"
                 android:layout_toRightOf="@+id/ButtonB"
+                android:onClick="onLetterClick"
                 android:text="N" />
 
             <Button
@@ -360,6 +384,7 @@
                 android:layout_alignBaseline="@+id/ButtonC"
                 android:layout_alignBottom="@+id/ButtonC"
                 android:layout_toRightOf="@+id/ButtonC"
+                android:onClick="onLetterClick"
                 android:text="V" />
 
             <Button
@@ -373,6 +398,7 @@
                 android:layout_alignBaseline="@+id/ButtonO"
                 android:layout_alignBottom="@+id/ButtonO"
                 android:layout_toRightOf="@+id/ButtonO"
+                android:onClick="onLetterClick"
                 android:text="P" />
         </RelativeLayout>
     </LinearLayout>

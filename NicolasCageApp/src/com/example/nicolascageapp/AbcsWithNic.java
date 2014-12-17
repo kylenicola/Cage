@@ -8,10 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
@@ -51,44 +53,56 @@ public class AbcsWithNic extends Activity
 	   
 	   private final int NUM_LETTERS = 26;
 	   
-	   private void fillLetterTimes()
+	   private void fillLetterTimesAndClicked()
 	   {		   		   
-		   assert(times.length == letters.length && times.length == 26);
+		   Resources res = getResources();
 		   for(int i = 0; i < NUM_LETTERS; i++)
 		   {
-			   letterTimes.put(letters[i], times[i]);
+			   letterTimes.put(letters[i], res.getInteger(times[i]));
+			   letterClicked.put(letters[i], false);
 		   }		   
 	   }
-	   
-	   private void fillClicked()
-	   {
-		   for(int i = 0; i < NUM_LETTERS; i++)
-		   {
-			   letterClicked.put(letters[i], false);
-		   }
-	   }
-	   
 	   
 	   public void onLetterClick(View v)
 	   {
 		   int letter = v.getId();
+		   long current = System.currentTimeMillis();
 		   int score = 0;
-		   differenceTime = Math.abs((System.currentTimeMillis() - startTime) - letterTimes.get(letter));
+		   differenceTime = Math.abs((current - startTime) - letterTimes.get(letter));
 
 		   if(differenceTime < 500)
 		   {
-			   score = 100;
+			   if(!letterClicked.get(letter))
+			   {
+				   score = 100;
+				   letterClicked.put(letter, true);
+			   }
 		   }
 		   else if(differenceTime < 1000)
 		   {
-			   score = 50;
+			   if(!letterClicked.get(letter))
+			   {
+				   score = 50;
+				   letterClicked.put(letter, true);
+			   }
 		   }
 		   else
 		   {
 			   score = -25;
 		   }
+		   
 
-		   // do something with score
+		   Log.d("abcs", "Start time: " + String.valueOf(startTime));
+		   Log.d("abcs", "Current time: " + String.valueOf(current));
+		   Log.d("abcs", "Letter time: " + String.valueOf(letterTimes.get(letter)));
+		   Log.d("abcs", "letter A: " + String.valueOf(R.id.ButtonA));
+		   Log.d("abcs", "letter pressed: " + String.valueOf(letter));
+		   Log.d("abcs", "abc_times TimeA: " + String.valueOf(R.integer.TimeA));
+		   Log.d("abcs", "times[0] time: " + String.valueOf(times[0]));
+		   // update player score
+		   playerScore += score;
+		   
+		   // change a text to show score
 	   }
 	 
 	   /** Called when the activity is first created. */
@@ -108,6 +122,7 @@ public class AbcsWithNic extends Activity
 	       myVideoView.start();
 	       
 	       startTime = System.currentTimeMillis();
+	       fillLetterTimesAndClicked();
 	       
 	       myVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() 
 	       {
@@ -136,429 +151,6 @@ public class AbcsWithNic extends Activity
 	    	   }
 		   });
 
-	       
-	       
-	       
-	       final Button keyA = (Button) findViewById(R.id.ButtonA);
-	         keyA.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long aTime = System.currentTimeMillis();
-	                
-	                if (startTime - aTime < 2000)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - aTime <= 1600)
-	                {
-	
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyB = (Button) findViewById(R.id.ButtonB);
-	         keyB.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long bTime = System.currentTimeMillis();
-	                if (startTime - bTime <= 2200)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - bTime  <= 2300)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyC = (Button) findViewById(R.id.ButtonC);
-	         keyC.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long cTime = System.currentTimeMillis();
-	                if (startTime - cTime <= 2300)
-	                {
-	                	playerScore += 100;
-	                	
-	                }
-	                else if (startTime - cTime <= 2400)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyD = (Button) findViewById(R.id.ButtonD);
-	         keyD.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long dTime = System.currentTimeMillis();
-	                if (startTime - dTime <= 2450)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - dTime <= 2550)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyE = (Button) findViewById(R.id.ButtonE);
-	         keyE.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long eTime = System.currentTimeMillis();
-	                if (startTime - eTime <= 2500)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - eTime <= 2600)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyF = (Button) findViewById(R.id.ButtonF);
-	         keyF.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long fTime = System.currentTimeMillis();
-	                if (startTime - fTime <= 3400)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - fTime <= 3500)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyG = (Button) findViewById(R.id.ButtonG);
-	         keyG.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long gTime = System.currentTimeMillis();
-	                if (startTime - gTime <= 3300)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - gTime <= 3400)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyH = (Button) findViewById(R.id.ButtonH);
-	         keyH.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long hTime = System.currentTimeMillis();
-	                if (startTime - hTime <= 3450)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - hTime <= 3550)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyI = (Button) findViewById(R.id.ButtonI);
-	         keyI.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long iTime = System.currentTimeMillis();
-	                if (startTime - iTime <= 3550)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - iTime <= 3650)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyJ = (Button) findViewById(R.id.ButtonJ);
-	         keyJ.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long jTime = System.currentTimeMillis();
-	                if (startTime - jTime <= 4200)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - jTime <= 4300)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyK = (Button) findViewById(R.id.ButtonK);
-	         keyK.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long kTime = System.currentTimeMillis();
-	                if (startTime - kTime <= 4350)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - kTime <= 4450)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyL = (Button) findViewById(R.id.ButtonL);
-	         keyL.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long lTime = System.currentTimeMillis();
-	                if (startTime - lTime <= 4400)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - lTime <= 4500)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyM = (Button) findViewById(R.id.ButtonM);
-	         keyM.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long mTime = System.currentTimeMillis();
-	                if (startTime - mTime <= 4450)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - mTime <= 4550)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyN = (Button) findViewById(R.id.ButtonN);
-	         keyN.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long nTime = System.currentTimeMillis();
-	                if (startTime - nTime <= 4500)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - nTime <= 4600)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyO = (Button) findViewById(R.id.ButtonO);
-	         keyO.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long oTime = System.currentTimeMillis();
-	                if (startTime - oTime <= 4750)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - oTime <= 4850)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyP = (Button) findViewById(R.id.ButtonP);
-	         keyP.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long pTime = System.currentTimeMillis();
-	                if (startTime - pTime <= 5200)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - pTime <= 5300)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyQ = (Button) findViewById(R.id.ButtonQ);
-	         keyQ.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long qTime = System.currentTimeMillis();
-	                if (startTime - qTime <= 5300)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - qTime <= 5400)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyR = (Button) findViewById(R.id.ButtonR);
-	         keyR.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long rTime = System.currentTimeMillis();
-	                if (startTime - rTime <= 5400)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - rTime <= 5500)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyS = (Button) findViewById(R.id.ButtonS);
-	         keyS.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long sTime = System.currentTimeMillis();
-	                if (startTime - sTime <= 5500)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - sTime <= 5600)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyT = (Button) findViewById(R.id.ButtonT);
-	         keyT.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long tTime = System.currentTimeMillis();
-	                if (startTime - tTime <= 6200)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - tTime <= 6300)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyU = (Button) findViewById(R.id.ButtonU);
-	         keyU.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long uTime = System.currentTimeMillis();
-	                if (startTime - uTime <= 6300)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - uTime <= 6400)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyV = (Button) findViewById(R.id.ButtonV);
-	         keyV.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long vTime = System.currentTimeMillis();
-	                if (startTime - vTime <= 6350)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - vTime <= 6450)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyW = (Button) findViewById(R.id.ButtonW);
-	         keyW.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long wTime = System.currentTimeMillis();
-	                if (startTime - wTime <= 6400)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - wTime <= 6500)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyX= (Button) findViewById(R.id.ButtonX);
-	         keyX.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long xTime = System.currentTimeMillis();
-	                if (startTime - xTime <= 6500)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - xTime <= 6600)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyY = (Button) findViewById(R.id.ButtonY);
-	         keyY.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long yTime = System.currentTimeMillis();
-	                if (startTime - yTime <= 7150)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - yTime <= 7350)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	         final Button keyZ = (Button) findViewById(R.id.ButtonZ);
-	         keyZ.setOnClickListener(new View.OnClickListener() 
-	         {
-	             public void onClick(View v) 
-	             {
-	                long zTime = System.currentTimeMillis();
-	                if (startTime - zTime <= 7200)
-	                {
-	                	playerScore += 100;
-	                }
-	                else if (startTime - zTime <= 7300)
-	                {
-	                	playerScore += 50;
-	                }
-	             }
-	         });
-	       
 	   }
 	   
 	   public int getPlayerScore()
