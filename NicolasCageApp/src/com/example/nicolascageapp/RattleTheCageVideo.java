@@ -6,11 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -21,14 +25,23 @@ public class RattleTheCageVideo extends Activity
 	VideoView myVideoView;
 	
 	static final int RATTLE_SCORE = 50;
+	
+	private boolean finished = false;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.rattle_end_video);
+		//LinearLayout layout = (LinearLayout) findViewById(R.id.rattle_vid_layout);
+		//AnimationDrawable progressAnimation = (AnimationDrawable) layout.getBackground();
+		//progressAnimation.start();
+		
+		//AnimationDrawable progressAnimation = (AnimationDrawable) getBackground();
+		//progressAnimation.start();
 
 		final SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
 		// all videos
@@ -36,10 +49,10 @@ public class RattleTheCageVideo extends Activity
 
 		// grab random video
 		int video = videos[(int)(Math.random()*videos.length)];
+		video = R.raw.not_the_bees;
 		
 		
 		myVideoView = (VideoView)findViewById(R.id.RattleTheCageVideo);
-		myVideoView.setMediaController(new MediaController(this));
 		myVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + video));
 		myVideoView.start();
 		myVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -54,6 +67,7 @@ public class RattleTheCageVideo extends Activity
 				Editor editor = prefs.edit();
 				editor.putInt("rattle_most_recent_score", RATTLE_SCORE);
 				editor.commit();
+				finished = true;
 				
 
 				Intent intent = new Intent(RattleTheCageVideo.this, RattleTheCageScore.class);
@@ -62,6 +76,8 @@ public class RattleTheCageVideo extends Activity
 
 			}
 		});
+		
+		
 
 		/*new Handler().postDelayed(new Runnable() 
 	       {

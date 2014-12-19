@@ -1,13 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bee_repeat"
     android:gravity="fill_vertical"
-    android:orientation="vertical" >
+    android:id="@+id/rattle_vid_layout"
+     >
 
     <VideoView
         android:id="@+id/RattleTheCageVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
          />
     
 </LinearLayout>

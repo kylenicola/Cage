@@ -183,6 +183,7 @@ public class RattleTheCage extends Activity {
 		super.onResume();
 		createSoundPool();
 		mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
+		mSensorListener.resetShakeParameters();
 	}
 	
 	@Override
@@ -214,6 +215,8 @@ public class RattleTheCage extends Activity {
 	{
 		createSoundPool();
 		mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
+		mSensorListener.resetShakeParameters();
+		super.onStart();
 	}
 	
 
