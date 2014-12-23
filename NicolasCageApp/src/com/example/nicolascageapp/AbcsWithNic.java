@@ -2,6 +2,8 @@ package com.example.nicolascageapp;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Context;
@@ -35,6 +37,8 @@ public class AbcsWithNic extends Activity
 	   
 	   private Vibrator vibrator;
 	   private long buttonVibrateTime = 100;
+	   
+	   private final String TAG = "NicolasCageApp AbcsWithNic";
 	   
 	   private int[] letters = {R.id.ButtonA, R.id.ButtonB, R.id.ButtonC,
 			   R.id.ButtonD, R.id.ButtonE, R.id.ButtonF,
@@ -100,9 +104,9 @@ public class AbcsWithNic extends Activity
 		   }
 		   
 
-		   Log.d("abcs", "Difference time: " + String.valueOf(differenceTime));
-		   Log.d("abcs", "Letter time: " + String.valueOf(letterTimes.get(letter)));
-		   Log.d("abcs", "Progress: " + String.valueOf(myVideoView.getCurrentPosition()));
+		   Log.d(TAG, "Difference time: " + String.valueOf(differenceTime));
+		   Log.d(TAG, "Letter time: " + String.valueOf(letterTimes.get(letter)));
+		   Log.d(TAG, "Progress: " + String.valueOf(myVideoView.getCurrentPosition()));
 
 		   // update player score
 		   playerScore += score;
@@ -124,12 +128,13 @@ public class AbcsWithNic extends Activity
 	       final SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
 	       
 	       myVideoView = (VideoView)findViewById(R.id.abcs_videoView);
-	       // myVideoView.setMediaController(new MediaController(this));
 	       myVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.abcs_video));
 	       myVideoView.start();
 	       
 	       
 	       fillLetterTimesAndClicked();
+	       
+	       
 	       
 	       myVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() 
 	       {
