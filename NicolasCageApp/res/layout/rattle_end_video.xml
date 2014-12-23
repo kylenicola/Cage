@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bee_repeat"
+    android:background="@drawable/bees_1_repeat"
     android:gravity="fill_vertical"
-    android:id="@+id/rattle_vid_layout"
-     >
+	android:id="@+id/please_work"     >
 
     <VideoView
         android:id="@+id/RattleTheCageVideo"
