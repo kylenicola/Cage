@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bees_1_repeat"
     android:gravity="fill_vertical"
-	android:id="@+id/please_work"     >
+	android:id="@+id/bees_layout"     >
 
     <VideoView
         android:id="@+id/RattleTheCageVideo"
