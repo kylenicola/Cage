@@ -45,6 +45,7 @@
     <string name="rattle_text_neg_3"></string>
     <string name="rattle_text_neg_4">You such a disappointment</string>
     <string name="settings_dialog_title">Settings</string>
-
+	<string name="zero">0</string>
+	<string name="continue_to_score">Continue</string>
 
 </resources>

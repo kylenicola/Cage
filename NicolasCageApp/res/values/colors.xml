@@ -3,5 +3,6 @@
     <color name="keyboard_background">#303030</color>
     <color name="keyboard_button">#5B5B5C</color>
     <color name="keyboard_letter">#FFFFFF</color>
-    
+    <color name="cage_clues_count">#FF0000</color>
+    <color name="cage_clues_background">#000000</color>
 </resources>
