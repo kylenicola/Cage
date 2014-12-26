@@ -1,2 +1,0 @@
-INDEX VERSION 1.126+/Users/namnguyen/Documents/CS 371M/nic_cage_prototype/NicCageMobileApp/.metadata/.plugins/org.eclipse.jdt.core
-2850375429.index
