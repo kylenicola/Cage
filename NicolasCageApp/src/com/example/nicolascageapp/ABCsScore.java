@@ -17,14 +17,14 @@ public class ABCsScore extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_abcs_score);
-		
+
 		SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
-		
+
 		TextView mostRecentScore = (TextView)findViewById(R.id.mostRecentScoreABC);
 		int most_recent_score = prefs.getInt("abc_most_recent_score", 0);
 		mostRecentScore.setText(Integer.toString(most_recent_score));
-		
+
 		if(prefs.getInt("abc_hi_score", 0) < most_recent_score) {
 			editor.putInt("abc_hi_score", most_recent_score);
 			editor.commit();
@@ -35,7 +35,14 @@ public class ABCsScore extends Activity {
 	}
 
 	public void onClickToMainMenu(View view) {
-		Intent intent = new Intent(this, MainActivity.class);
+		Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}		
+
+	@Override
+	public void onBackPressed() 
+	{
+		Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+	}
 }

@@ -69,8 +69,6 @@ public class RattleTheCageVideo extends Activity
 				Intent intent = new Intent(RattleTheCageVideo.this, RattleTheCageScore.class);
 				intent.putExtra("score", RATTLE_SCORE);
 				startActivity(intent);
-				RattleTheCageVideo.this.finish();
-
 			}
 		});
 
@@ -93,7 +91,7 @@ public class RattleTheCageVideo extends Activity
 
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(this, MainActivity.class);
+		Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}
 

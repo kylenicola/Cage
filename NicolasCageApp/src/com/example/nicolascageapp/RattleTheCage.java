@@ -7,11 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.hardware.SensorEventListener;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Vibrator;
@@ -61,9 +59,6 @@ public class RattleTheCage extends Activity {
 					
 					Intent intent = new Intent(RattleTheCage.this, RattleTheCageVideo.class);
 					startActivity(intent);
-					finish();
-					
-					// Move to video activity
 				}
 				else if(totalDuration > (fifth_time * 1000))
 				{
@@ -174,7 +169,7 @@ public class RattleTheCage extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(this, MainActivity.class);
+		Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}
 	
