@@ -41,8 +41,7 @@ public class RattleTheCageScore extends Activity {
 
 	
 	public void onClickToMainMenu(View view) {
-		Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
+		finish();
 	}	
 
 }

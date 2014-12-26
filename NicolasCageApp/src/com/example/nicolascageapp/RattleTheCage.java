@@ -61,6 +61,7 @@ public class RattleTheCage extends Activity {
 					
 					Intent intent = new Intent(RattleTheCage.this, RattleTheCageVideo.class);
 					startActivity(intent);
+					finish();
 					
 					// Move to video activity
 				}
