@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="Settings">
+        <item>Sound On</item>
         <item>Slow Down A, B, C\'s Game</item>
     </string-array>
 </resources>

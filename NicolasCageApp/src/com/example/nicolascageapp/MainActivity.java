@@ -10,6 +10,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.os.Build;
+import android.preference.PreferenceManager;
 
 import java.util.Timer;
 
@@ -36,11 +39,17 @@ public class MainActivity extends Activity {
 	static final int DIALOG_HELP_ID = 1;
 	static final int DIALOG_QUIT_ID = 2;
 	static final int DIALOG_SETTINGS_ID = 3;
+	
+	public static final String KEY_PREF_SOUND = "pref_sound";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_menu);
+		
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		
+		//getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
 		
 		final ImageButton rattleTheCageButton = (ImageButton) findViewById(R.id.imageButton1);
 		rattleTheCageButton.setOnTouchListener(new OnTouchListener() {
@@ -143,21 +152,37 @@ public class MainActivity extends Activity {
 	}
 	
 	private Dialog createSettingsDialog(Builder builder) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+		boolean soundOn = prefs.getBoolean(KEY_PREF_SOUND, true);
+		Log.d("main activity", "soundOn: " + String.valueOf(soundOn));
+		boolean[] settingsDefault = {soundOn, false};
 		
-		
-		builder.setPositiveButton("Ok", null).setMultiChoiceItems(R.array.Settings, null, new DialogInterface.OnMultiChoiceClickListener() {
+		builder.setPositiveButton("Ok", null).setMultiChoiceItems(R.array.Settings, settingsDefault, new DialogInterface.OnMultiChoiceClickListener() {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-				// TODO Auto-generated method stub
-				AlertDialog.Builder nopeBuilder = new AlertDialog.Builder(MainActivity.this);
-				Dialog nopeDialog = null;
-				if (isChecked)
+
+				switch(which)
 				{
-					nopeBuilder.setMessage("NICOLAS CAGE SLOWS FOR NO MAN").setPositiveButton("my bad", null);
-					nopeDialog = nopeBuilder.create();
-					nopeDialog.show();
+				case 0:
+					Log.d("main activity clicked", "isChecked: " + String.valueOf(isChecked));
+					SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+					Editor ed = prefs.edit();
+					ed.putBoolean(KEY_PREF_SOUND, isChecked);
+					ed.commit();
+					break;
+				case 1:
+					AlertDialog.Builder nopeBuilder = new AlertDialog.Builder(MainActivity.this);
+					Dialog nopeDialog = null;
+					if (isChecked)
+					{
+						nopeBuilder.setMessage("NICOLAS CAGE SLOWS FOR NO MAN").setPositiveButton("my bad", null);
+						nopeDialog = nopeBuilder.create();
+						nopeDialog.show();
+					}
+					break;
 				}
+				
 			}
 		});
 		return builder.create();

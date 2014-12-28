@@ -5,14 +5,17 @@ import java.util.HashMap;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 
 public class RattleTheCage extends Activity {
 	
@@ -23,6 +26,7 @@ public class RattleTheCage extends Activity {
 	private SoundPool mSounds;
 	private HashMap<Integer, Integer> mSoundIDMap;
 	
+	public static final String KEY_PREF_SOUND = "pref_sound";
 	
 	
 	@Override 
@@ -30,6 +34,10 @@ public class RattleTheCage extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rattle_main);
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean soundOn = prefs.getBoolean(KEY_PREF_SOUND, true);
+		Log.d("rattle the cage", "soundOn: " + String.valueOf(soundOn));
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
