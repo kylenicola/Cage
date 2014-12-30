@@ -89,7 +89,11 @@
                 android:value="com.example.nicolascageapp.MainActvity" />
         </activity>
         <activity
-            android:name=".Settings"
+            android:name=".SettingsPage"
+            android:label="@string/title_activity_settings" >
+        </activity>
+        <activity
+            android:name=".SettingsFragment"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity

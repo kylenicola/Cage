@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Typeface;
+import android.media.audiofx.BassBoost.Settings;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -205,8 +206,10 @@ public class MainActivity extends Activity {
 			dialog = createQuitDialog(builder);
 			break;
 		case DIALOG_SETTINGS_ID:
-			
-			dialog = createSettingsDialog(builder);
+			//
+			Intent intent = new Intent(this, Settings.class);
+			startActivity(intent);
+			//dialog = createSettingsDialog(builder);
 			break;
 		
 		}
@@ -221,7 +224,9 @@ public class MainActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			Log.d("butthole", "settings clicked");
-			showDialog(DIALOG_SETTINGS_ID);
+			Intent intent = new Intent(MainActivity.this, SettingsPage.class);
+			startActivity(intent);
+			//showDialog(DIALOG_SETTINGS_ID);
 			return true;
 		}
 		else if(id == R.id.action_about)
