@@ -4,6 +4,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
+import android.util.Log;
 
 public class ShakeEventListener implements SensorEventListener {
 
@@ -72,6 +73,9 @@ public class ShakeEventListener implements SensorEventListener {
 				lastZ = z;
 				
 				mTotalDuration = now - mFirstDirectionChangeTime;
+				Log.d("shakeevent", "now " + String.valueOf(now));
+				Log.d("shakeevent", "mFirstDirectionChangeTime " + String.valueOf(mFirstDirectionChangeTime));
+				Log.d("shakevent",  "mTotalDuration " + String.valueOf(mTotalDuration));
 
 				mShakeListener.onShake(mTotalDuration, false);
 			//}
@@ -81,11 +85,20 @@ public class ShakeEventListener implements SensorEventListener {
 			long now = System.currentTimeMillis();
 			long wait_time = 2;
 			
+			if(mFirstDirectionChangeTime == 0)
+			{
+				mFirstDirectionChangeTime = now;
+				mLastDirectionChangeTime = now;
+			}
+			
 			if((now - mLastDirectionChangeTime) > wait_time * 1000)
 			{
 				mLastDirectionChangeTime = now;
 				mFirstDirectionChangeTime = mFirstDirectionChangeTime + wait_time * 2000 < now ? mFirstDirectionChangeTime + wait_time * 2000 : now;
 				mTotalDuration = now - mFirstDirectionChangeTime;
+				Log.d("shakeevent", "now " + String.valueOf(now));
+				Log.d("shakeevent", "mFirstDirectionChangeTime " + String.valueOf(mFirstDirectionChangeTime));
+				Log.d("shakevent",  "mTotalDuration " + String.valueOf(mTotalDuration));
 				mShakeListener.onShake(mTotalDuration, true);
 			}
 //			resetShakeParameters();
