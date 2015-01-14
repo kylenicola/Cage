@@ -193,7 +193,7 @@ public class MovingCage extends View {
 			if((now - mLastVelocityOkayTime) > WAIT_TIME)
 			{
 				mLastVelocityOkayTime = now;
-				mStartTime = mStartTime + WAIT_TIME < now ? mStartTime + WAIT_TIME : now;
+				mStartTime = mStartTime + (WAIT_TIME * 2) < now ? mStartTime + (WAIT_TIME * 2) : now;
 				mTotalDuration = now - mStartTime;
 			}
 		}

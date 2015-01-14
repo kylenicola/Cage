@@ -7,30 +7,18 @@ import java.util.TimerTask;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.os.Vibrator;
 
 public class RattleTheCage extends Activity {
 	
@@ -51,18 +39,10 @@ public class RattleTheCage extends Activity {
 	private int mSrcWidth;
 	private int mSrcHeight;
 	
-	// x, y values
-	private float prevX;
-	private float prevY;
-	private float curX;
-	private float curY;
-	
-	// times
-	private long prevTime;
-	private long curTime;
-	
+	// to track finger movements
 	private VelocityTracker velocity;
 	
+	// to track total time of finger movements
 	private Timer rattleTimer;
 	
 	@Override 
@@ -80,12 +60,15 @@ public class RattleTheCage extends Activity {
 		mSrcWidth = display.getWidth(); 
 		mSrcHeight = display.getHeight();
 		
+		// make the cage view and place it
 		movingCage = new MovingCage(getBaseContext());
-		movingCage.setX(mSrcWidth/2);
-		movingCage.setY(mSrcHeight/2);
+		movingCage.setX((mSrcWidth/2) - (movingCage.getImageWidth()/2));
+		movingCage.setY((mSrcHeight/2) - (movingCage.getImageHeight()/2));
 		
+		// get the velocity tracker
 		velocity = VelocityTracker.obtain();
 		
+		// grab the view to setup on touch listener
 		final LinearLayout mainView = 
 				(android.widget.LinearLayout)findViewById(R.id.rattle_main_view);
 		
@@ -93,6 +76,7 @@ public class RattleTheCage extends Activity {
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
+				// get the x,y.  adjust for image height
 				float x = event.getAxisValue(MotionEvent.AXIS_X) - (movingCage.getImageWidth() / 2);
 				float y = event.getAxisValue(MotionEvent.AXIS_Y) - (movingCage.getImageHeight() / 2);
 				long now = System.currentTimeMillis();
@@ -100,30 +84,14 @@ public class RattleTheCage extends Activity {
 				if(event.getAction() == MotionEvent.ACTION_DOWN)
 				{
 					movingCage.onTouch = true;
-					prevTime = now;
-					curTime = now;
-					prevX = x;
-					prevY = y;
-					curX = x;
-					curY = y;
-					
 				}
 				else if(event.getAction() == MotionEvent.ACTION_MOVE)
 				{
 					velocity.addMovement(event);
-					prevTime = curTime;
-					curTime = now;
-					prevX = curX;
-					prevY = curY;
-					curX = x;
-					curY = y;
-					
 					velocity.computeCurrentVelocity(10);
-					if(prevTime != curTime)
-					{
-						movingCage.setXVelocity(velocity.getXVelocity());
-						movingCage.setYVelocity(velocity.getYVelocity());
-					}
+					movingCage.setXVelocity(velocity.getXVelocity());
+					movingCage.setYVelocity(velocity.getYVelocity());
+
 				}
 				else if(event.getAction() == MotionEvent.ACTION_UP)
 				{
