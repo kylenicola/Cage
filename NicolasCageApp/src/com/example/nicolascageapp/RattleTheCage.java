@@ -1,29 +1,69 @@
 package com.example.nicolascageapp;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Display;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.os.Vibrator;
 
 public class RattleTheCage extends Activity {
 	
 	private SensorManager mSensorManager;
-	private ShakeEventListener mSensorListener;	
+	private ShakeEventListener mSensorListener;
+	private SensorEventListener mSensorListener2;
+	private SensorEventListener mTouchSensorListener;
 	
 	// for all the sounds  we play
 	private SoundPool mSounds;
 	private HashMap<Integer, Integer> mSoundIDMap;
 	
+
+	// image going to be drawing
+	private MovingCage movingCage;
 	
+	// to place cage
+	private int mSrcWidth;
+	private int mSrcHeight;
+	
+	// x, y values
+	private float prevX;
+	private float prevY;
+	private float curX;
+	private float curY;
+	
+	// times
+	private long prevTime;
+	private long curTime;
+	
+	private VelocityTracker velocity;
+	
+	private Timer rattleTimer;
 	
 	@Override 
 	public void onCreate(Bundle savedInstanceState)
@@ -31,127 +71,216 @@ public class RattleTheCage extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rattle_main);
 		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-		mSensorListener = new ShakeEventListener();
-		ImageView myImageView = (ImageView) findViewById(R.id.rattleImage);
-		myImageView.setImageResource(R.drawable.shakeme_first);
-		myImageView.setTag(R.drawable.shakeme_first);
 		
-		mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
-			
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		
+		//get screen dimensions
+		Display display = getWindowManager().getDefaultDisplay();  
+		mSrcWidth = display.getWidth(); 
+		mSrcHeight = display.getHeight();
+		
+		movingCage = new MovingCage(getBaseContext());
+		movingCage.setX(mSrcWidth/2);
+		movingCage.setY(mSrcHeight/2);
+		
+		velocity = VelocityTracker.obtain();
+		
+		final LinearLayout mainView = 
+				(android.widget.LinearLayout)findViewById(R.id.rattle_main_view);
+		
+		mainView.setOnTouchListener(new OnTouchListener(){
+
 			@Override
-			public void onShake(long totalDuration, boolean hasStopped) {
-				ImageView myImageView = (ImageView) findViewById(R.id.rattleImage);
-				TextView myTextView = (TextView) findViewById(R.id.rattleText);
-				Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+			public boolean onTouch(View v, MotionEvent event) {
+				float x = event.getAxisValue(MotionEvent.AXIS_X) - (movingCage.getImageWidth() / 2);
+				float y = event.getAxisValue(MotionEvent.AXIS_Y) - (movingCage.getImageHeight() / 2);
+				long now = System.currentTimeMillis();
 				
-				long sixth_time = 13;
-				long fifth_time = 10;
-				long fourth_time = 7;
-				long third_time = 4;
-				long second_time = 2;
-				
-				
-
-				if(totalDuration > (sixth_time * 1000))
+				if(event.getAction() == MotionEvent.ACTION_DOWN)
 				{
+					movingCage.onTouch = true;
+					prevTime = now;
+					curTime = now;
+					prevX = x;
+					prevY = y;
+					curX = x;
+					curY = y;
 					
-					Intent intent = new Intent(RattleTheCage.this, RattleTheCageVideo.class);
-					startActivity(intent);
 				}
-				else if(totalDuration > (fifth_time * 1000))
+				else if(event.getAction() == MotionEvent.ACTION_MOVE)
 				{
-					if(!myImageView.getTag().equals(R.drawable.shakeme_fifth))
+					velocity.addMovement(event);
+					prevTime = curTime;
+					curTime = now;
+					prevX = curX;
+					prevY = curY;
+					curX = x;
+					curY = y;
+					
+					velocity.computeCurrentVelocity(10);
+					if(prevTime != curTime)
 					{
-						if(!hasStopped)
-						{
-							// put sound in here
-							mSounds.play(mSoundIDMap.get(R.raw.yell_four), 1, 1, 1, 0, 1);
-						}
-						myTextView.setText(R.string.rattle_text_pos_5);
-						long[] patterns = {0, 400, 100, 400, 100, 400, 100, 400, 100, 400, 100, 400, 100};
-						myImageView.setImageResource(R.drawable.shakeme_fifth);
-						v.vibrate(patterns, -1);
-						myImageView.setTag(R.drawable.shakeme_fifth);
+						movingCage.setXVelocity(velocity.getXVelocity());
+						movingCage.setYVelocity(velocity.getYVelocity());
 					}
 				}
-				else if(totalDuration > (fourth_time * 1000))
+				else if(event.getAction() == MotionEvent.ACTION_UP)
 				{
-					if(!myImageView.getTag().equals(R.drawable.shakeme_fourth))
-					{
-						if(!hasStopped)
-						{
-							// put sound in here
-							mSounds.play(mSoundIDMap.get(R.raw.yell_three), 1, 1, 1, 0, 1);
-							myTextView.setText(R.string.rattle_text_pos_4);
-						}
-						else
-						{
-							myTextView.setText(R.string.rattle_text_neg_4);
-						}
-						
-						long[] patterns = {0, 300, 100, 350, 250, 300, 100, 350, 250, 300, 100, 350, 250};
-						myImageView.setImageResource(R.drawable.shakeme_fourth);
-						v.vibrate(patterns, -1);
-						myImageView.setTag(R.drawable.shakeme_fourth);
-					}
+					movingCage.onTouch = false;
 				}
-				else if(totalDuration > (third_time * 1000))
-				{
-					if(!myImageView.getTag().equals(R.drawable.shakeme_third))
-					{
-						if(!hasStopped)
-						{
-							// put sound in here
-							mSounds.play(mSoundIDMap.get(R.raw.yell_two), 1, 1, 1, 0, 1);
-							myTextView.setText(R.string.rattle_text_pos_3);
-						}
-						else
-						{
-							myTextView.setText(R.string.rattle_text_neg_2);
-						}
-						
-						
-						long[] patterns = {0, 220, 100, 230, 500, 220, 100, 230, 500, 220, 100, 230, 350};
-						myImageView.setImageResource(R.drawable.shakeme_third);
-						v.vibrate(patterns, -1);
-						myImageView.setTag(R.drawable.shakeme_third);
-					}
-				}
-				else if(totalDuration > (second_time * 1000))
-				{
-					if(!myImageView.getTag().equals(R.drawable.shakeme_second))
-					{
-						if(!hasStopped)
-						{
-							// put sound in here
-							mSounds.play(mSoundIDMap.get(R.raw.yell_one), 1, 1, 1, 0, 1);
-							myTextView.setText(R.string.rattle_text_pos_2);
-						}
-						else
-						{
-							myTextView.setText(R.string.rattle_text_neg_2);
-						}
-						
-						long[] patterns = {0, 200, 100, 200, 1500};
-						myImageView.setImageResource(R.drawable.shakeme_second);
-						v.vibrate(patterns, -1);
-						myImageView.setTag(R.drawable.shakeme_second);
-					}
-				}
-				else
-				{
-					if(!myImageView.getTag().equals(R.drawable.shakeme_first))
-					{
-						myTextView.setText(R.string.rattle_text_pos_1);
-						myImageView.setImageResource(R.drawable.shakeme_first);
-						myImageView.setTag(R.drawable.shakeme_first);
-					}
-				}
+				movingCage.setX(x);
+				movingCage.setY(y);
 
+				return true;
 			}
+			
 		});
+		
+		mainView.addView(movingCage);
+		movingCage.invalidate();
+		
+		rattleTimer = new Timer();
+		
+		
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		
+		
+		
+//		mSensorListener2 = new SensorEventListener(){
+//
+//			
+//			@Override
+//			public void onSensorChanged(SensorEvent event) {
+//				movingCage.setX(movingCage.getX() + (-event.values[0])*2);
+//				movingCage.setY(movingCage.getY() + (event.values[1])*2);
+//				movingCage.invalidate();
+//			}
+//
+//			@Override
+//			public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//		};
+	
+
+//		mSensorListener.setOnShakeListener(new ShakeEventListener.OnShakeListener() {
+//			final long sixth_time 	=	13;
+//			final long fifth_time 	=	10;
+//			final long fourth_time 	=	7;
+//			final long third_time 	=	4;
+//			final long second_time	=	2;
+//			
+//			Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//			
+//			@Override
+//			public void onShake(long totalDuration, boolean hasStopped, float xSpd, float ySpd) {
+//				movingCage.setX(movingCage.x + xSpd*100);
+//				movingCage.setY(movingCage.y + ySpd*100);
+//				movingCage.invalidate();
+//				
+//				Log.d("is this", "being called?");
+//				
+////				if(totalDuration > (sixth_time * 1000))
+////				{
+////					
+////					Intent intent = new Intent(RattleTheCage.this, RattleTheCageVideo.class);
+////	startActivity(intent);
+////				}
+////				else if(totalDuration > (fifth_time * 1000))
+////				{
+////					if(!myImageView.getTag().equals(R.drawable.shakeme_fifth))
+////					{
+////						if(!hasStopped)
+////						{
+////							// put sound in here
+////							mSounds.play(mSoundIDMap.get(R.raw.yell_four), 1, 1, 1, 0, 1);
+////						}
+////						myTextView.setText(R.string.rattle_text_pos_5);
+////						long[] patterns = {0, 400, 100, 400, 100, 400, 100, 400, 100, 400, 100, 400, 100};
+////						myImageView.setImageResource(R.drawable.shakeme_fifth);
+////						v.vibrate(patterns, -1);
+////						myImageView.setTag(R.drawable.shakeme_fifth);
+////					}
+////				}
+////				else if(totalDuration > (fourth_time * 1000))
+////				{
+////					if(!myImageView.getTag().equals(R.drawable.shakeme_fourth))
+////					{
+////						if(!hasStopped)
+////						{
+////							// put sound in here
+////							mSounds.play(mSoundIDMap.get(R.raw.yell_three), 1, 1, 1, 0, 1);
+////							myTextView.setText(R.string.rattle_text_pos_4);
+////						}
+////						else
+////						{
+////							myTextView.setText(R.string.rattle_text_neg_4);
+////						}
+////						
+////						long[] patterns = {0, 300, 100, 350, 250, 300, 100, 350, 250, 300, 100, 350, 250};
+////						myImageView.setImageResource(R.drawable.shakeme_fourth);
+////						v.vibrate(patterns, -1);
+////						myImageView.setTag(R.drawable.shakeme_fourth);
+////					}
+////				}
+////				else if(totalDuration > (third_time * 1000))
+////				{
+////					if(!myImageView.getTag().equals(R.drawable.shakeme_third))
+////					{
+////						if(!hasStopped)
+////						{
+////							// put sound in here
+////							mSounds.play(mSoundIDMap.get(R.raw.yell_two), 1, 1, 1, 0, 1);
+////							myTextView.setText(R.string.rattle_text_pos_3);
+////						}
+////						else
+////						{
+////							myTextView.setText(R.string.rattle_text_neg_2);
+////						}
+////						
+////						
+////						long[] patterns = {0, 220, 100, 230, 500, 220, 100, 230, 500, 220, 100, 230, 350};
+////						myImageView.setImageResource(R.drawable.shakeme_third);
+////						v.vibrate(patterns, -1);
+////						myImageView.setTag(R.drawable.shakeme_third);
+////					}
+////				}
+////				else if(totalDuration > (second_time * 1000))
+////				{
+////					if(!myImageView.getTag().equals(R.drawable.shakeme_second))
+////					{
+////						if(!hasStopped)
+////						{
+////							// put sound in here
+////							mSounds.play(mSoundIDMap.get(R.raw.yell_one), 1, 1, 1, 0, 1);
+////							myTextView.setText(R.string.rattle_text_pos_2);
+////						}
+////						else
+////						{
+////							myTextView.setText(R.string.rattle_text_neg_2);
+////						}
+////						
+////						long[] patterns = {0, 200, 100, 200, 1500};
+////						myImageView.setImageResource(R.drawable.shakeme_second);
+////						v.vibrate(patterns, -1);
+////						myImageView.setTag(R.drawable.shakeme_second);
+////					}
+////				}
+////				else
+////				{
+////					if(!myImageView.getTag().equals(R.drawable.shakeme_first))
+////					{
+////						myTextView.setText(R.string.rattle_text_pos_1);
+////						myImageView.setImageResource(R.drawable.shakeme_first);
+////						myImageView.setTag(R.drawable.shakeme_first);
+////					}
+////				}
+//
+//			}
+//		});
 		
 	}
 	
@@ -178,14 +307,14 @@ public class RattleTheCage extends Activity {
 	{
 		super.onResume();
 		createSoundPool();
-		mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
-		mSensorListener.resetShakeParameters();
+		//mSensorManager.registerListener(mSensorListener2, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_GAME);
+		//mSensorListener.resetShakeParameters();
 	}
 	
 	@Override
 	protected void onPause() 
 	{
-		mSensorManager.unregisterListener(mSensorListener);
+		//mSensorManager.unregisterListener(mSensorListener2);
 		
 		if(mSounds != null) {
 			mSounds.release();
@@ -197,7 +326,10 @@ public class RattleTheCage extends Activity {
 	@Override
 	protected void onStop()
 	{
-		mSensorManager.unregisterListener(mSensorListener);
+		//mSensorManager.unregisterListener(mSensorListener2);
+		
+		rattleTimer.cancel();
+		rattleTimer.purge();
 		
 		if(mSounds != null) {
 			mSounds.release();
@@ -210,8 +342,71 @@ public class RattleTheCage extends Activity {
 	protected void onStart()
 	{
 		createSoundPool();
-		mSensorManager.registerListener(mSensorListener, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
-		mSensorListener.resetShakeParameters();
+		
+		rattleTimer.schedule(new TimerTask(){
+
+			@Override
+			public void run() {
+				//Log.d("is this", "running?");
+				//Log.d("is this", "movingCage Velocity: " + String.valueOf(movingCage.getTotalVelocity()));
+				//Log.d("is this", "total moving time: " + String.valueOf(movingCage.getTotalTimeMoving()));
+				final long sixth_time 	=	13000;
+				final long fifth_time 	=	10000;
+				final long fourth_time 	=	7000;
+				final long third_time 	=	4000;
+				final long second_time	=	2000;
+				
+				long totalTimeMoving = movingCage.getTotalTimeMoving();
+				
+				Log.d("is this", "totalmoving: " + String.valueOf(totalTimeMoving));
+				
+				if(totalTimeMoving > sixth_time)
+				{
+					Intent intent = new Intent(RattleTheCage.this, RattleTheCageVideo.class);
+					startActivity(intent);
+				}
+				else if(totalTimeMoving > fifth_time)
+				{
+					if(movingCage.getDrawableID() != R.drawable.shakeme_fifth)
+					{
+						movingCage.setDrawable(R.drawable.shakeme_fifth);
+					}
+				}
+				else if(totalTimeMoving > fourth_time)
+				{
+					if(movingCage.getDrawableID() != R.drawable.shakeme_fourth)
+					{
+						movingCage.setDrawable(R.drawable.shakeme_fourth);
+					}
+				}
+				else if(totalTimeMoving > third_time)
+				{
+					if(movingCage.getDrawableID() != R.drawable.shakeme_third)
+					{
+						movingCage.setDrawable(R.drawable.shakeme_third);
+					}
+				}
+				else if(totalTimeMoving > second_time)
+				{
+					if(movingCage.getDrawableID() != R.drawable.shakeme_second)
+					{
+						movingCage.setDrawable(R.drawable.shakeme_second);
+					}
+				}				
+				else
+				{
+					if(movingCage.getDrawableID() != R.drawable.shakeme_first)
+					{
+						movingCage.setDrawable(R.drawable.shakeme_first);
+					}
+				}
+				
+				
+			}
+			
+		}, 0, 1000);
+		//mSensorManager.registerListener(mSensorListener2, mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
+		//mSensorListener.resetShakeParameters();
 		super.onStart();
 	}
 	

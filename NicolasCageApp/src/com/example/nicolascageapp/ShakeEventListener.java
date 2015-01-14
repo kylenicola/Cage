@@ -10,19 +10,11 @@ public class ShakeEventListener implements SensorEventListener {
 
 	private static final int MIN_FORCE = 10;
 	
-	private static final int MIN_DIRECTION_CHANGE = 3;
-	
-	private static final int MAX_PAUSE_BETWEEN_DIRECTION_CHANGE = 200;
-	
-	// private MAX_TOTAL_DURATION_OF_SHAKE = 400;
-	
 	private long mFirstDirectionChangeTime = 0;
 	
 	private long mLastDirectionChangeTime = 0;
 	
 	public long mTotalDuration = 0;
-	
-	private int mDirectionChangeCount = 0;
 	
 	private float lastX = 0;
 	
@@ -33,7 +25,7 @@ public class ShakeEventListener implements SensorEventListener {
 	private OnShakeListener mShakeListener;
 	
 	public interface OnShakeListener {
-		void onShake(long totalDuration, boolean hasStopped);
+		void onShake(long totalDuration, boolean hasStopped, float xSpd, float ySpd);
 	}
 	
 	public void setOnShakeListener(OnShakeListener listener)
@@ -43,11 +35,13 @@ public class ShakeEventListener implements SensorEventListener {
 	
 	@Override
 	public void onSensorChanged(SensorEvent event) {
+		
 		float x = event.values[SensorManager.DATA_X];
 		float y = event.values[SensorManager.DATA_Y];
 		float z = event.values[SensorManager.DATA_Z];
 		
-		//mShakeListener.onShake();
+		float x_tilt = -event.values[0];
+		float y_tilt = event.values[1];
 		
 		float totalMovement = Math.abs(x + y + z - lastX - lastY - lastZ);
 		
@@ -66,18 +60,14 @@ public class ShakeEventListener implements SensorEventListener {
 			//if (lastChangeWasAgo < MAX_PAUSE_BETWEEN_DIRECTION_CHANGE)
 			//{
 				mLastDirectionChangeTime = now;
-				mDirectionChangeCount++;
 				
 				lastX = x;
 				lastY = y;
 				lastZ = z;
 				
 				mTotalDuration = now - mFirstDirectionChangeTime;
-				Log.d("shakeevent", "now " + String.valueOf(now));
-				Log.d("shakeevent", "mFirstDirectionChangeTime " + String.valueOf(mFirstDirectionChangeTime));
-				Log.d("shakevent",  "mTotalDuration " + String.valueOf(mTotalDuration));
 
-				mShakeListener.onShake(mTotalDuration, false);
+				mShakeListener.onShake(mTotalDuration, false, x_tilt, y_tilt);
 			//}
 		} 
 		else 
@@ -96,10 +86,7 @@ public class ShakeEventListener implements SensorEventListener {
 				mLastDirectionChangeTime = now;
 				mFirstDirectionChangeTime = mFirstDirectionChangeTime + wait_time * 2000 < now ? mFirstDirectionChangeTime + wait_time * 2000 : now;
 				mTotalDuration = now - mFirstDirectionChangeTime;
-				Log.d("shakeevent", "now " + String.valueOf(now));
-				Log.d("shakeevent", "mFirstDirectionChangeTime " + String.valueOf(mFirstDirectionChangeTime));
-				Log.d("shakevent",  "mTotalDuration " + String.valueOf(mTotalDuration));
-				mShakeListener.onShake(mTotalDuration, true);
+				mShakeListener.onShake(mTotalDuration, true, x_tilt, y_tilt);
 			}
 //			resetShakeParameters();
 //			mShakeListener.onShake(mDirectionChangeCount, true);
@@ -110,7 +97,6 @@ public class ShakeEventListener implements SensorEventListener {
 	public void resetShakeParameters()
 	{
 		mFirstDirectionChangeTime = 0;
-		mDirectionChangeCount = 0;
 		mLastDirectionChangeTime = 0;
 		mTotalDuration = 0;
 		lastX = 0;
