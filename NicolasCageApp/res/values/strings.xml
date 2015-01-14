@@ -47,5 +47,6 @@
     <string name="settings_dialog_title">Settings</string>
 	<string name="zero">0</string>
 	<string name="continue_to_score">Continue</string>
+	<string name="main_menu_rattlecage_description">Nicolas Cage\'s Face</string>
 
 </resources>
