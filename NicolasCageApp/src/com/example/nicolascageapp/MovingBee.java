@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
@@ -20,7 +21,7 @@ public class MovingBee extends View {
 	private float y_velocity;
 	
 	// How fast the bee should be flying
-	private final float TOTAL_VELOCITY = 50;
+	private final float TOTAL_VELOCITY = 40;
 	
 	// Bee image setup
 	private int beeImgID_1 = R.drawable.moving_bee_1;
@@ -30,10 +31,6 @@ public class MovingBee extends View {
 	// Bee image info
 	private int beeWidth;
 	private int beeHeight;
-	
-	// screen info
-	private int screenWidth;
-	private int screenHeight;
 	
 	// Handler to constantly be drawin'
 	Handler handler;
@@ -54,24 +51,14 @@ public class MovingBee extends View {
 		
 		// sets bee image based upon x_velocity (don't want a bee flying backwards...maybe)
 		// also get stats
-		//beeImg = BitmapFactory.decodeResource(getResources(), x_velocity > 0 ? beeImgID_2 : beeImgID_1);
-		beeImg = BitmapFactory.decodeResource(getResources(), R.drawable.arrow);
+		beeImg = BitmapFactory.decodeResource(getResources(), x_velocity > 0 ? beeImgID_2 : beeImgID_1);
+
 		beeWidth = beeImg.getWidth();
 		beeHeight = beeImg.getHeight();
 		
-		//setPosition();
+		setPosition();
 		
-		x = 50;
-		y = 50;
-		
-		// screen info
-		screenWidth = this.getWidth();
-		screenHeight = this.getHeight();
-		
-
-		
-		handler = new Handler();
-		
+		handler = new Handler(context.getMainLooper());
 	}
 	
 	// responsible for settings x, y velocities taking into account
@@ -87,14 +74,16 @@ public class MovingBee extends View {
 			x_velocity = 15;
 		}
 		// Calculates y velocity c^2 - b^2 = a^2
-		y_velocity = (float) (Math.sqrt(Math.pow(TOTAL_VELOCITY, 2) - Math.pow(x, 2)));
+		y_velocity = (float) (Math.sqrt(Math.pow(TOTAL_VELOCITY, 2) - Math.pow(x_velocity, 2)));
+		Log.d("setting vel", "1. y_vel: " + String.valueOf(y_velocity) );
 		y_velocity *= Math.random() > .5 ? 1 : -1;
+		Log.d("setting vel", "1. y_vel: " + String.valueOf(y_velocity) );
 	}
 	
 	private void setPosition()
 	{
 		x = -beeHeight;
-		y = (float) (Math.random() * screenHeight);
+		y = (float) (Math.random() * this.getHeight());
 	}
 	
 	private Runnable r = new Runnable()
@@ -108,36 +97,34 @@ public class MovingBee extends View {
 		
 	};
 	
+	
 	@Override
 	protected void onDraw(Canvas canvas)
 	{
 		super.onDraw(canvas);
-		//x += x_velocity;
-		
-		//y += y_velocity;
+
+		x += x_velocity;
+		y += y_velocity;
 		
 		if(x < -beeWidth)
 		{
-			x = screenWidth;
+			x = this.getWidth();
 		}
-		else if(x > screenWidth + beeWidth)
+		else if(x > this.getWidth() + beeWidth)
 		{
 			x = -beeWidth;
 		}
 		else if(y < -beeHeight)
 		{
-			y = screenHeight;
+			y = this.getHeight();
 		}
-		else if(y > screenHeight + beeHeight)
+		else if(y > this.getHeight() + beeHeight)
 		{
 			y = -beeHeight;
 		}
 		
-		//canvas.drawBitmap(beeImg, x, y, paint);
-		canvas.drawCircle(x, y, 50, paint);
+		canvas.drawBitmap(beeImg, x, y, paint);
 		
-		Log.d("bee drawing", "x: " + String.valueOf(x));
-		Log.d("bee drawing", "y: " + String.valueOf(y));
 		
 		handler.postDelayed(r, FRAME_RATE);
 	}

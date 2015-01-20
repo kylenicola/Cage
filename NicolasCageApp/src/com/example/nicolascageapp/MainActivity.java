@@ -21,12 +21,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,6 +47,12 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_menu);
+		
+
+		final LinearLayout mainView = 
+				(LinearLayout)findViewById(R.id.main_menu_layout);
+
+		
 		
 		final RelativeLayout rattleTheCageLayout = (RelativeLayout) findViewById(R.id.main_rattlethecage_layout);
 		final ImageView rattleTheCageButton = (ImageView) findViewById(R.id.cageFace);

@@ -9,6 +9,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,9 @@ public class MovingCage extends View {
 	private long mTotalDuration;
 	private final long WAIT_TIME = 1500;
 	
+	// If cage is slowing his roll
+	public boolean isSlowing;
+	
 	// Handler
 	private Handler h;
 	
@@ -50,6 +54,9 @@ public class MovingCage extends View {
 	private int drawable_id = R.drawable.shakeme_first;
 	private Bitmap drawable_bitmap;
 	
+	// Vibrator for when it hits a wall
+	private Vibrator vibrator;
+	
 
 	public MovingCage(Context context) {
 		super(context);
@@ -64,6 +71,9 @@ public class MovingCage extends View {
 		this.h = new Handler();
 		this.mStartTime = 0;
 		this.mTotalDuration = 2;
+		this.isSlowing = false;
+		vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+		
 	}
 	
 	public void setXVelocity(float x_velocity)
@@ -148,7 +158,6 @@ public class MovingCage extends View {
 	protected void onDraw(Canvas canvas)
 	{
 		super.onDraw(canvas);
-		//Log.d("rattle", "total vel: " + String.valueOf(getTotalVelocity()));
 
 		long now = System.currentTimeMillis();
 		if(mStartTime == 0)
@@ -160,6 +169,11 @@ public class MovingCage extends View {
 		{
 			x += x_velocity;
 			y += y_velocity;
+		}
+		
+		if(x < 0 || x + (getImageWidth()) > this.getWidth() || y < 0 || y  + (getImageHeight()) > this.getHeight())
+		{
+			vibrator.vibrate(20);
 		}
 		
 		if(x < 0)
@@ -185,6 +199,7 @@ public class MovingCage extends View {
 		
 		if(getTotalVelocity() > MIN_VELOCITY)
 		{
+			isSlowing = false;
 			mLastVelocityOkayTime = now;
 			mTotalDuration = now - mStartTime;
 		}
@@ -192,6 +207,7 @@ public class MovingCage extends View {
 		{
 			if((now - mLastVelocityOkayTime) > WAIT_TIME)
 			{
+				isSlowing = true;
 				mLastVelocityOkayTime = now;
 				mStartTime = mStartTime + (WAIT_TIME * 2) < now ? mStartTime + (WAIT_TIME * 2) : now;
 				mTotalDuration = now - mStartTime;
