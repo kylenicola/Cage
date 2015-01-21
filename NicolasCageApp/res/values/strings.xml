@@ -48,5 +48,8 @@
 	<string name="zero">0</string>
 	<string name="continue_to_score">Continue</string>
 	<string name="main_menu_rattlecage_description">Nicolas Cage\'s Face</string>
+	<string name="main_menu_rattlethecage">Rattle The Cage  </string>
+	<string name="main_menu_abcswithnics">ABC\'s With NIC  </string>
+	<string name="main_menu_cageclueswhatdidhelose">Cage Clues:\nWhat Did He Lose?  </string>
 
 </resources>

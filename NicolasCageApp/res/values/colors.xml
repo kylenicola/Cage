@@ -6,4 +6,5 @@
     <color name="cage_clues_count">#FF0000</color>
     <color name="cage_clues_background">#000000</color>
     <color name="rattle_cage_background">#A3C2FF</color>
+    <color name="main_menu_text_background">#8AB8E6</color>
 </resources>
