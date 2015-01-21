@@ -46,14 +46,14 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_menu);
 		
-		final RelativeLayout rattleTheCageLayout = (RelativeLayout) findViewById(R.id.main_rattlethecage_layout);
 		final ImageView rattleTheCageButton = (ImageView) findViewById(R.id.cageFace);
-		final TextView rattleTheCageText = (TextView) findViewById(R.id.main_rattlethecage_text);
-		rattleTheCageLayout.setOnTouchListener(new OnTouchListener() {
+		final TextView rattleTheCageText = (TextView) findViewById(R.id.rattlethecage);
+		rattleTheCageText.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				rattleTheCageText.setTextColor(android.graphics.Color.RED);
+				rattleTheCageText.setTextColor(android.graphics.Color.WHITE);
+				rattleTheCageText.setBackgroundColor(getResources().getColor(R.color.main_menu_text_background));
 				Animation shake = AnimationUtils.loadAnimation(getBaseContext(), R.anim.main_rattlecage_face_shake);
 
 				rattleTheCageButton.startAnimation(shake);
@@ -68,36 +68,16 @@ public class MainActivity extends Activity {
 					
 				}, 2025);
 				return false;
-//				while(true)
-//				{
-//					if(shake.hasEnded())
-//					{
-//						Intent intent = new Intent(MainActivity.this, RattleTheCage.class);
-//						startActivity(intent);
-//						return true;
-//					}
-//				}
-				
-				
-//				rattleTheCageButton.setPressed(true);
-//				Handler handler = new Handler();
-//			    handler.postDelayed(new Runnable() {
-//			    	@Override
-//			        public void run() {
-//			    		Intent intent = new Intent(getBaseContext(), RattleTheCage.class);
-//			    		startActivity(intent);
-//			        }
-//			    }, 1000);
-//			    return true;
 			}
 		});
-		
-		final ImageButton abcButton = (ImageButton) findViewById(R.id.imageButton2);
-		abcButton.setOnTouchListener(new OnTouchListener() {
+		//
+		final TextView abcsWithNicText = (TextView) findViewById(R.id.abcswithnic);
+		abcsWithNicText.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				abcButton.setPressed(true);
+				abcsWithNicText.setTextColor(android.graphics.Color.WHITE);
+				abcsWithNicText.setBackgroundColor(getResources().getColor(R.color.main_menu_text_background));
 				Handler handler = new Handler();
 			    handler.postDelayed(new Runnable() {
 			    	@Override
@@ -110,12 +90,13 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		final ImageButton cluesButton = (ImageButton) findViewById(R.id.imageButton3);
-		cluesButton.setOnTouchListener(new OnTouchListener() {
+		final TextView cageCluesText = (TextView) findViewById(R.id.cageclueswhatdidhelose);
+		cageCluesText.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				cluesButton.setPressed(true);
+				cageCluesText.setTextColor(android.graphics.Color.WHITE);
+				cageCluesText.setBackgroundColor(getResources().getColor(R.color.main_menu_text_background));
 				Handler handler = new Handler();
 			    handler.postDelayed(new Runnable() {
 			    	@Override

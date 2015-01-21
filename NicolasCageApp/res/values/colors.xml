@@ -5,4 +5,5 @@
     <color name="keyboard_letter">#FFFFFF</color>
     <color name="cage_clues_count">#FF0000</color>
     <color name="cage_clues_background">#000000</color>
+    <color name="main_menu_text_background">#8AB8E6</color>
 </resources>

@@ -2,70 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="3"
-    android:background="@android:color/background_dark"
+    android:weightSum="2"
+    android:background="@drawable/main_menu_selector"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
+        <ImageView
+            android:id="@+id/cageFace"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/main_menu_rattlethecage_face_off" />
 
-	<RelativeLayout
-	    android:layout_height="0dp"
-	    android:layout_width="fill_parent"
-	    android:layout_weight="1"
-	    android:id="@+id/main_rattlethecage_layout" >
+    </RelativeLayout>
 
-		<ImageView
-		    android:id="@+id/cageFace"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentLeft="true"
-		    android:layout_centerVertical="true"
-		    android:layout_marginLeft="20dp"
-		    android:contentDescription="@string/main_menu_rattlecage_description"
-		    android:src="@drawable/main_menu_rattlethecage_face_off" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp" 
+        android:layout_weight="1">
 
-		<TextView
-		    android:id="@+id/main_rattlethecage_text"
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/cageFace"
-		    android:gravity="center_vertical|center_horizontal"
-		    android:minLines="3"
-		    android:text="@string/rattle_the_cage_title"
-		    android:textAppearance="?android:attr/textAppearanceLarge"
-		    android:textColor="@android:color/white"
-		    android:textStyle="bold" />
-	
-	</RelativeLayout>
-	<LinearLayout
-	    android:layout_height="0dp"
-	    android:layout_width="fill_parent"
-	    android:layout_weight="1" > 
+        <TextView
+            android:id="@+id/cageclueswhatdidhelose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/abcswithnic"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:text="@string/main_menu_cageclueswhatdidhelose"
+            android:textSize="23sp" />
 
-    <ImageButton
-    	android:id="@+id/imageButton2"
-    	android:layout_width="match_parent"
-    	android:layout_height="match_parent"
-    	android:padding="0dp"
-    	android:layout_marginTop="5dp"
-    	android:scaleType="centerCrop"
-   		android:src="@drawable/mainmenu_abcs" />
-	</LinearLayout>	
-	<LinearLayout
-	    android:layout_height="0dp"
-	    android:layout_width="fill_parent"
-	    android:layout_weight="1" >
-     <ImageButton
-     	android:id="@+id/imageButton3"
-     	android:layout_width="match_parent"
-    	android:layout_height="match_parent"
-     	android:padding="0dp"
-     	android:layout_marginTop="5dp"
-     	android:scaleType="centerCrop"
-     	android:src="@drawable/mainmenu_cageclues" />
-     </LinearLayout>	
+        <TextView
+            android:id="@+id/rattlethecage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:text="@string/main_menu_rattlethecage"
+            android:textSize="23sp" />
 
-   <!--   </LinearLayout> -->
+        <TextView
+            android:id="@+id/abcswithnic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rattlethecage"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="left"
+            android:text="@string/main_menu_abcswithnics"
+            android:textSize="23sp" />
+
+    </RelativeLayout>
 
 </LinearLayout>
