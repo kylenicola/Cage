@@ -10,63 +10,63 @@
 
     <translate
         android:fromXDelta="0"
-        android:toXDelta="60"
+        android:toXDelta="90"
         android:duration="350"
         android:startOffset="200" />
 
     <translate
         android:fromXDelta="0"
-        android:toXDelta="-60"
+        android:toXDelta="-90"
         android:startOffset="550"
         android:duration="300" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="60"
+        android:toXDelta="90"
         android:duration="250"
         android:startOffset="850" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="-60"
+        android:toXDelta="-90"
         android:duration="200"
         android:startOffset="1100" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="60"
+        android:toXDelta="90"
         android:duration="150"
         android:startOffset="1300" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="-60"
+        android:toXDelta="-90"
         android:duration="100"
         android:startOffset="1450" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="60"
+        android:toXDelta="90"
         android:duration="75"
         android:startOffset="1550" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="-60"
+        android:toXDelta="-90"
         android:duration="75"
         android:startOffset="1625" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="60"
+        android:toXDelta="90"
         android:duration="75"
         android:startOffset="1700" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="-60"
+        android:toXDelta="-90"
         android:duration="75"
         android:startOffset="1775" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="60"
+        android:toXDelta="90"
         android:duration="75"
         android:startOffset="1850" />
     <translate
         android:fromXDelta="0"
-        android:toXDelta="-60"
+        android:toXDelta="-90"
         android:duration="75"
         android:startOffset="1925" />
     <translate

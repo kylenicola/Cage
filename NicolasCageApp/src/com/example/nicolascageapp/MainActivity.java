@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_menu);
 		
+		LinearLayout main_menu_layout = (LinearLayout) findViewById(R.id.main_menu_layout);
 
 		final ImageView rattleTheCageButton = (ImageView) findViewById(R.id.cageFace);
 		final TextView rattleTheCageText = (TextView) findViewById(R.id.rattlethecage);
@@ -73,7 +74,7 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-		//
+		
 		final TextView abcsWithNicText = (TextView) findViewById(R.id.abcswithnic);
 		abcsWithNicText.setOnTouchListener(new OnTouchListener() {
 			

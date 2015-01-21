@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
+    android:background="@color/main_menu_background"
     android:orientation="vertical"
     android:id="@+id/main_menu_layout" >
 
@@ -36,9 +36,12 @@
             android:layout_below="@+id/abcswithnic"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:gravity="left"
+            android:gravity="center_horizontal"
             android:text="@string/main_menu_cageclueswhatdidhelose"
-            android:textSize="23sp" />
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:color="@android:color/white" />
 
         <TextView
             android:id="@+id/rattlethecage"
@@ -47,9 +50,11 @@
             android:layout_alignParentTop="true"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:gravity="left"
+            android:gravity="center_horizontal"
             android:text="@string/main_menu_rattlethecage"
-            android:textSize="23sp" />
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/abcswithnic"
@@ -58,9 +63,11 @@
             android:layout_below="@+id/rattlethecage"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:gravity="left"
+            android:gravity="center_horizontal"
             android:text="@string/main_menu_abcswithnics"
-            android:textSize="23sp" />
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

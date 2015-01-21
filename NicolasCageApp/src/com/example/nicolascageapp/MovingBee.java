@@ -21,7 +21,7 @@ public class MovingBee extends View {
 	private float y_velocity;
 	
 	// How fast the bee should be flying
-	private final float TOTAL_VELOCITY = 40;
+	private final float TOTAL_VELOCITY = 55;
 	
 	// Bee image setup
 	private int beeImgID_1 = R.drawable.moving_bee_1;
