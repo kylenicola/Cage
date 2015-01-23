@@ -5,16 +5,12 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -26,23 +22,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.TranslateAnimation;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.os.Build;
-
-import java.util.Timer;
 
 public class MainActivity extends Activity {
 
@@ -60,8 +48,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main_menu);
 
 
-
-		final LinearLayout main_menu_layout = (LinearLayout) findViewById(R.id.main_menu_layout);
 
 		final ImageView cageFace = (ImageView) findViewById(R.id.cageFace);
 		final TextView rattleTheCageText = (TextView) findViewById(R.id.rattlethecage);
@@ -127,27 +113,6 @@ public class MainActivity extends Activity {
 		mainMenuTop.addView(blueDog, params);
 		mainMenuTop.invalidate();
 
-		final AnimationListener animListener = new AnimationListener(){
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
-
-			}
-
-		};
 		final TextView cageCluesText = (TextView) findViewById(R.id.cageclueswhatdidhelose);
 		cageCluesText.setOnTouchListener(new OnTouchListener() {
 
@@ -157,13 +122,11 @@ public class MainActivity extends Activity {
 				{
 					clicked = true;
 
-					final MediaPlayer mp = MediaPlayer.create(getBaseContext(), R.raw.blues_clues_theme);
-					//mp.start();				
 					blueDog.setX(mainMenuTop.getWidth());
 					ObjectAnimator anim = ObjectAnimator.ofFloat(blueDog, "translationX", -mainMenuTop.getWidth() - blueDog.getWidth());
 					anim.setDuration(2500);
 					ObjectAnimator anim2 = ObjectAnimator.ofFloat(cageFace, "translationX", -cageFace.getX() - cageFace.getWidth());
-					//anim.setStartDelay(3500/2+200);
+
 					anim.addListener(new Animator.AnimatorListener() {
 
 						@Override
@@ -174,21 +137,17 @@ public class MainActivity extends Activity {
 
 						@Override
 						public void onAnimationRepeat(Animator animation) {
-							// TODO Auto-generated method stub
 
 						}
 
 						@Override
 						public void onAnimationEnd(Animator animation) {
 							cageFace.setImageResource(R.drawable.main_menu_rage_face);
-							//
-							// TODO Auto-generated method stub
 
 						}
 
 						@Override
 						public void onAnimationCancel(Animator animation) {
-							// TODO Auto-generated method stub
 
 						}
 					});
@@ -203,13 +162,11 @@ public class MainActivity extends Activity {
 
 						@Override
 						public void onAnimationRepeat(Animator animation) {
-							// TODO Auto-generated method stub
 
 						}
 
 						@Override
 						public void onAnimationEnd(Animator animation) {
-							mp.stop();
 							Handler handler = new Handler();
 							handler.postDelayed(new Runnable() {
 								@Override
@@ -218,13 +175,11 @@ public class MainActivity extends Activity {
 									startActivity(intent);
 								}
 							}, 1000);
-							// TODO Auto-generated method stub
 
 						}
 
 						@Override
 						public void onAnimationCancel(Animator animation) {
-							// TODO Auto-generated method stub
 
 						}
 					});
@@ -297,7 +252,6 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-				// TODO Auto-generated method stub
 				AlertDialog.Builder nopeBuilder = new AlertDialog.Builder(MainActivity.this);
 				Dialog nopeDialog = null;
 				if (isChecked)
