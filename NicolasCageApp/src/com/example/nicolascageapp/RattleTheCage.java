@@ -297,8 +297,10 @@ public class RattleTheCage extends Activity {
 		private float lastX = 0;
 		private float lastY = 0;
 		private float lastZ = 0;
+		float lastXVelocity = 0;
+		float lastYVelocity = 0;
 		
-		final float VELOCITY_MULTIPLIER = 30;
+		final float VELOCITY_MULTIPLIER = 20;
 		
 		private long lastTime = -1;
 		
@@ -310,29 +312,58 @@ public class RattleTheCage extends Activity {
 			float z = event.values[SensorManager.DATA_Z];
 			
 			
+			
 			long now = System.currentTimeMillis();
 			
 			if(lastTime != -1)
 			{
 				long diffTime = now - lastTime;
-				float xVelocity = ((x-lastX)	/ (diffTime)) * VELOCITY_MULTIPLIER;
-				float yVelocity = (y-lastY)	/ (diffTime);
-				float zVelocity = (z-lastZ)	/ (diffTime);
+				float xVelocity = (x-lastX)	*	VELOCITY_MULTIPLIER;
+				float yVelocity = (y-lastY)	*	VELOCITY_MULTIPLIER * (float) 1.5;
+				float zVelocity = (z-lastZ)	*	VELOCITY_MULTIPLIER;
 				
-				Log.d("test", "x vel: " + String.valueOf(xVelocity));
-				//Log.d("test", "y vel: " + String.valueOf(yVelocity));
-				if(xVelocity > 20)
+			
+				
+				//Log.d("test", "x vel: " + String.valueOf(xVelocity));
+				Log.d("test", "y vel: " + String.valueOf(yVelocity));
+				//Log.d("test", "z vel: " + String.valueOf(zVelocity));
+				if(Math.abs(xVelocity) > 20)
 				{
-					movingCage.setXVelocity(xVelocity);
+					if((xVelocity > 0 && lastXVelocity > 0) || (xVelocity < 0 && lastXVelocity < 0))
+					{
+						if(Math.abs(xVelocity) > Math.abs(lastXVelocity))
+						{
+							movingCage.setXVelocity(xVelocity);
+							lastXVelocity = xVelocity;
+						}
+					}
+					else
+					{
+						movingCage.setXVelocity(xVelocity);
+						lastXVelocity = xVelocity;
+					}
 				}
-				if(yVelocity > 20 || zVelocity > 20)
+				if(Math.abs(yVelocity) > 30)
 				{
-					movingCage.setYVelocity(Math.max(yVelocity, zVelocity));
+					if((yVelocity > 0 && lastYVelocity > 0) || (yVelocity < 0 && lastYVelocity < 0))
+					{
+						if(Math.abs(yVelocity) > Math.abs(lastYVelocity))
+						{
+							movingCage.setYVelocity(yVelocity);
+							lastYVelocity = yVelocity;
+						}
+					}
+					else
+					{
+						movingCage.setYVelocity(yVelocity);
+						lastYVelocity = yVelocity;
+					}
 				}
 			}
 			lastX = x;
 			lastY = y;
 			lastZ = z;
+			
 			lastTime = now;
 		}
 

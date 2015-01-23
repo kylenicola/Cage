@@ -10,11 +10,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 
@@ -71,6 +73,15 @@ public class RattleTheCageVideo extends Activity
 				startActivity(intent);
 			}
 		});
+		beesVideoView.setOnPreparedListener(new OnPreparedListener() {
+
+			@Override
+			public void onPrepared(MediaPlayer mp) {
+				mp.setVolume((float) .9, (float).9);
+			}
+			
+		});
+
 
 		if(savedInstanceState != null)
 		{

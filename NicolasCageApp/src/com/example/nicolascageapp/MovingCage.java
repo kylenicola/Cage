@@ -181,17 +181,17 @@ public class MovingCage extends View {
 			x = 1;
 			x_velocity *= VEL_DECREASE;
 		}
-		else if(x + (getImageWidth()) > this.getWidth())
+		if(x + (getImageWidth()) > this.getWidth())
 		{
 			x = this.getWidth() - getImageWidth();
 			x_velocity *= VEL_DECREASE;
 		}
-		else if(y < 0)
+		if(y < 0)
 		{
 			y = 1;
 			y_velocity *= VEL_DECREASE;
 		}
-		else if(y  + (getImageHeight()) > this.getHeight())
+		if(y  + (getImageHeight()) > this.getHeight())
 		{
 			y = this.getHeight() - getImageHeight();
 			y_velocity *= VEL_DECREASE;
