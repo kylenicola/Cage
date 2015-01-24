@@ -23,6 +23,66 @@
             android:layout_marginBottom="40dp"
             android:src="@drawable/main_menu_rattlethecage_face_off" />
 
+        <TextView
+            android:id="@+id/letterA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="A"
+            android:alpha="0"
+            android:textSize="50sp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <TextView
+            android:id="@+id/letterB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:alpha="0"
+            android:text="B"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/cageBanana"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:alpha="0"
+            android:src="@drawable/cage_banana" />
+
+        <TextView
+            android:id="@+id/cageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/letterA"
+            android:layout_alignBottom="@+id/letterA"
+            android:layout_centerHorizontal="true"
+            android:alpha="0"
+            android:text="Cage"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/blueDog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:translationX="-200dp"
+            
+            android:src="@drawable/blue_dog" />
+
+
+
     </RelativeLayout>
 
     <RelativeLayout

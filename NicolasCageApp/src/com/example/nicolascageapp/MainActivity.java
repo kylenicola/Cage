@@ -25,10 +25,10 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,6 +38,9 @@ public class MainActivity extends Activity {
 	static final int DIALOG_HELP_ID = 1;
 	static final int DIALOG_QUIT_ID = 2;
 	static final int DIALOG_SETTINGS_ID = 3;
+
+	static final int FADE_IN = 4;
+	static final int FADE_OUT = 5;
 
 	private final String TAG = "MainActivity";
 	public boolean clicked = false;
@@ -60,18 +63,36 @@ public class MainActivity extends Activity {
 					clicked = true;
 					rattleTheCageText.setTextColor(android.graphics.Color.YELLOW);
 					Animation shake = AnimationUtils.loadAnimation(getBaseContext(), R.anim.main_rattlecage_face_shake);
-
-					cageFace.startAnimation(shake);
-					Handler h = new Handler();
-					h.postDelayed(new Runnable(){
+					shake.setAnimationListener(new AnimationListener(){
 
 						@Override
-						public void run() {
-							Intent intent = new Intent(getBaseContext(), RattleTheCage.class);
-							startActivity(intent);
+						public void onAnimationStart(Animation animation) {
+							
 						}
 
-					}, 2025);
+						@Override
+						public void onAnimationEnd(Animation animation) {
+							Handler h = new Handler();
+							h.postDelayed(new Runnable(){
+
+								@Override
+								public void run() {
+									Intent intent = new Intent(getBaseContext(), RattleTheCage.class);
+									startActivity(intent);
+								}
+
+							}, 250);
+							
+						}
+
+						@Override
+						public void onAnimationRepeat(Animation animation) {
+							
+						}
+						
+					});
+					cageFace.startAnimation(shake);
+					
 
 
 				}
@@ -80,6 +101,58 @@ public class MainActivity extends Activity {
 		});
 
 		final TextView abcsWithNicText = (TextView) findViewById(R.id.abcswithnic);
+		final RelativeLayout mainMenuTop = (RelativeLayout) findViewById(R.id.main_menu_top_layout);
+
+		TextView letterA = (TextView) findViewById (R.id.letterA);
+		TextView letterB = (TextView) findViewById (R.id.letterB);
+		TextView cageText = (TextView) findViewById (R.id.cageText);
+		ImageView cageBanana = (ImageView) findViewById(R.id.cageBanana);
+
+		ObjectAnimator animA = getAlphaAnimator(letterA, FADE_IN, -1);
+		ObjectAnimator animAFade = getAlphaAnimator(letterA, FADE_OUT, -1);
+		ObjectAnimator animB = getAlphaAnimator(letterB, FADE_IN, -1);
+		ObjectAnimator animBFade = getAlphaAnimator(letterB, FADE_OUT, -1);
+		ObjectAnimator animCageText = getAlphaAnimator(cageText, FADE_IN, -1);
+		ObjectAnimator animCageBanana = getAlphaAnimator(cageBanana, FADE_IN, -1);
+
+		final AnimatorSet animSet = new AnimatorSet();
+		animSet.setInterpolator(new LinearInterpolator());
+		animSet.play(animA).before(animAFade);
+		animSet.play(animAFade).before(animB);
+		animSet.play(animB).before(animBFade);
+		animSet.play(animBFade).before(animCageText);
+		animSet.play(animCageText).with(animCageBanana);
+		animSet.addListener(new Animator.AnimatorListener() {
+
+			@Override
+			public void onAnimationStart(Animator animation) {
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						Intent intent = new Intent(getBaseContext(), AbcsWithNic.class);
+						startActivity(intent);
+					}
+				}, 750);
+
+			}
+
+			@Override
+			public void onAnimationCancel(Animator animation) {
+
+			}
+		});
+
 		abcsWithNicText.setOnTouchListener(new OnTouchListener() {
 
 			@Override
@@ -87,31 +160,18 @@ public class MainActivity extends Activity {
 				if(!clicked)
 				{
 					clicked = true;
+
+					cageFace.setAlpha(0);
 					abcsWithNicText.setTextColor(android.graphics.Color.YELLOW);
-					Handler handler = new Handler();
-					handler.postDelayed(new Runnable() {
-						@Override
-						public void run() {
-							Intent intent = new Intent(getBaseContext(), AbcsWithNic.class);
-							startActivity(intent);
-						}
-					}, 1000);
+					animSet.start();
+
 				}
 				return true;
 			}
 		});
 
-		final RelativeLayout mainMenuTop = (RelativeLayout) findViewById(R.id.main_menu_top_layout);
-		final ImageView blueDog = new ImageView(getBaseContext());
-		blueDog.setImageResource(R.drawable.blue_dog);
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-		//params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-		blueDog.setX(-500);		
-		Log.d(TAG, "mainMenuTop width: " + String.valueOf(mainMenuTop.getMeasuredWidth()));
-		//		/blueDog.setPadding(1, 1, 1, 1);
-		mainMenuTop.addView(blueDog, params);
-		mainMenuTop.invalidate();
+
+		final ImageView blueDog = (ImageView) findViewById(R.id.blueDog);
 
 		final TextView cageCluesText = (TextView) findViewById(R.id.cageclueswhatdidhelose);
 		cageCluesText.setOnTouchListener(new OnTouchListener() {
@@ -122,11 +182,16 @@ public class MainActivity extends Activity {
 				{
 					clicked = true;
 
+					// handle text
+					cageCluesText.setTextColor(android.graphics.Color.YELLOW);
+					
+					// place dog
 					blueDog.setX(mainMenuTop.getWidth());
+					
+					// setting up animations.  First is the dog running across screen
+					// second is cage turning into rageface and then chasing after dog.
 					ObjectAnimator anim = ObjectAnimator.ofFloat(blueDog, "translationX", -mainMenuTop.getWidth() - blueDog.getWidth());
 					anim.setDuration(2500);
-					ObjectAnimator anim2 = ObjectAnimator.ofFloat(cageFace, "translationX", -cageFace.getX() - cageFace.getWidth());
-
 					anim.addListener(new Animator.AnimatorListener() {
 
 						@Override
@@ -151,6 +216,8 @@ public class MainActivity extends Activity {
 
 						}
 					});
+					
+					ObjectAnimator anim2 = ObjectAnimator.ofFloat(cageFace, "translationX", -cageFace.getX() - cageFace.getWidth());
 					anim2.setStartDelay(500);
 					anim2.setDuration(750);
 					anim2.addListener(new Animator.AnimatorListener() {
@@ -174,7 +241,7 @@ public class MainActivity extends Activity {
 									Intent intent = new Intent(getBaseContext(), CageCluesVid.class);
 									startActivity(intent);
 								}
-							}, 1000);
+							}, 250);
 
 						}
 
@@ -183,17 +250,12 @@ public class MainActivity extends Activity {
 
 						}
 					});
-					anim.setInterpolator(new LinearInterpolator());
-					anim2.setInterpolator(new LinearInterpolator());
+
+					// animSet for two animations
 					AnimatorSet animSet = new AnimatorSet();
+					animSet.setInterpolator(new LinearInterpolator());
 					animSet.play(anim).before(anim2);
 					animSet.start();
-
-
-
-
-					// handle text
-					cageCluesText.setTextColor(android.graphics.Color.YELLOW);
 				}
 				return true;
 			}
@@ -265,6 +327,26 @@ public class MainActivity extends Activity {
 		return builder.create();
 	}
 
+	// gets alpha objectanimator
+	private ObjectAnimator getAlphaAnimator(View v, int fade, int delay)
+	{
+		ObjectAnimator anim;
+		if(fade == FADE_IN)
+		{
+			anim = ObjectAnimator.ofFloat(v, "alpha", 0, 1);
+		}
+		else
+		{
+			anim = ObjectAnimator.ofFloat(v, "alpha", 1, 0);
+		}
+		anim.setDuration(900);
+		if(delay > 0)
+		{
+			anim.setStartDelay(delay);
+		}
+		return anim;
+	}
+
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog = null;
@@ -297,7 +379,7 @@ public class MainActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
-			Log.d("butthole", "settings clicked");
+			Log.d(TAG, "settings clicked");
 			showDialog(DIALOG_SETTINGS_ID);
 			return true;
 		}
@@ -308,7 +390,7 @@ public class MainActivity extends Activity {
 		}
 		else if(id == R.id.action_help)
 		{
-			Log.d("butthole", "help clicked");
+			Log.d(TAG, "help clicked");
 			showDialog(DIALOG_HELP_ID);
 			return true;
 		}
