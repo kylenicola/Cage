@@ -8,23 +8,30 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 
 public class CageCluesVid extends Activity
 {
-	private final String TAG = "NicolasCageApp CageCluesVid";
+	private final String TAG = "CageCluesVid";
 	private final String CAGE_CLUES_VIDEO_TIME = "CAGE_CLUES_VIDEO_TIME";
 
+	// Video info
 	private VideoView cageCluesVideo;
 	private int videoTime;
+	private boolean userPaused;
 
 	private int cageCluesCount; 
 	
 	public String[] descriptions;
 	public int descriptionsLen;
+	
+	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -41,6 +48,7 @@ public class CageCluesVid extends Activity
 		descriptionsLen = descriptions.length;
 
 
+		userPaused = false;
 		cageCluesVideo = (VideoView) findViewById(R.id.cageclues_video);
 		cageCluesVideo.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.i_lost_my_hand2));
 
@@ -89,6 +97,32 @@ public class CageCluesVid extends Activity
 			}
 
 		});
+		
+		// If the video is clicked will play/pause
+		cageCluesVideo.setOnTouchListener(new OnTouchListener(){
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN)
+				{
+					Log.d(TAG, "touched");
+					VideoView vid = (VideoView) v;
+					if(vid.isPlaying())
+					{
+						vid.pause();
+						userPaused = true;
+					}
+					else
+					{
+						vid.start();
+						userPaused = false;
+					}
+				}
+				return false;
+			}
+			
+		});
+
 
 		if(savedInstanceState != null)
 		{
@@ -121,7 +155,7 @@ public class CageCluesVid extends Activity
 	{
 		super.onStart();
 		cageCluesVideo.seekTo(videoTime);
-		//cageCluesVideo.start();
+		
 	}
 
 	@Override
@@ -142,7 +176,10 @@ public class CageCluesVid extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-		//cageCluesVideo.start();
+		if(!userPaused)
+		{
+			cageCluesVideo.start();
+		}
 	}
 
 	@Override
