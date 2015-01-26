@@ -8,20 +8,30 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 
 public class CageCluesVid extends Activity
 {
-	private final String TAG = "NicolasCageApp CageCluesVid";
+	private final String TAG = "CageCluesVid";
 	private final String CAGE_CLUES_VIDEO_TIME = "CAGE_CLUES_VIDEO_TIME";
 
+	// Video info
 	private VideoView cageCluesVideo;
 	private int videoTime;
+	private boolean userPaused;
 
 	private int cageCluesCount; 
+	
+	public String[] descriptions;
+	public int descriptionsLen;
+	
+	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -32,10 +42,14 @@ public class CageCluesVid extends Activity
 		Log.d(TAG, "Starts CageCluesVid");
 
 		setContentView(R.layout.cage_clues);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		descriptions = getResources().getStringArray(R.array.cageclues_description);
+		descriptionsLen = descriptions.length;
 
 
-		cageCluesVideo = (VideoView) findViewById(R.id.cage_clues_video);
+		
+		cageCluesVideo = (VideoView) findViewById(R.id.cageclues_video);
 		cageCluesVideo.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.i_lost_my_hand2));
 
 		// for count & loop
@@ -54,10 +68,24 @@ public class CageCluesVid extends Activity
 					@Override
 					public void run() {
 
-						CageCluesVid.this.cageCluesCount += 1;
+						// If someone watches this 2^31-1 times...which i mean, just wow.
+						if(CageCluesVid.this.cageCluesCount + 1 < Integer.MAX_VALUE)
+						{
+							CageCluesVid.this.cageCluesCount += 1;
+						}
 						int cageCluesCount = CageCluesVid.this.cageCluesCount;
-						TextView cageCluesCountView = (TextView) findViewById(R.id.cage_clues_count);
+						
+						
+						// update count
+						TextView cageCluesCountView = (TextView) findViewById(R.id.cageclues_count);
 						cageCluesCountView.setText(String.valueOf(cageCluesCount));
+						
+						// update description
+						if(cageCluesCount - 1 < CageCluesVid.this.descriptionsLen)
+						{
+							TextView cageCluesDescription = (TextView) findViewById(R.id.cageclues_description);
+							cageCluesDescription.setText(CageCluesVid.this.descriptions[cageCluesCount-1]);
+						}
 					}
 
 				});
@@ -69,6 +97,33 @@ public class CageCluesVid extends Activity
 			}
 
 		});
+		
+		userPaused = false;
+		// If the video is clicked will play/pause
+		cageCluesVideo.setOnTouchListener(new OnTouchListener(){
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				if(event.getAction() == MotionEvent.ACTION_DOWN)
+				{
+					Log.d(TAG, "touched");
+					VideoView vid = (VideoView) v;
+					if(vid.isPlaying())
+					{
+						vid.pause();
+						userPaused = true;
+					}
+					else
+					{
+						vid.start();
+						userPaused = false;
+					}
+				}
+				return false;
+			}
+			
+		});
+
 
 		if(savedInstanceState != null)
 		{
@@ -79,12 +134,16 @@ public class CageCluesVid extends Activity
 			videoTime = 0;
 		}
 	}
-
-	public void moveToQuiz(View view) {
+	
+	public void continueToQuiz(View view)
+	{
+		TextView cont = (TextView) view;
+		cont.setTextColor(android.graphics.Color.YELLOW);
 		Intent intent = new Intent(this, CageClues.class);
 		startActivity(intent);
+		
 	}
-
+	
 	@Override
 	public void onBackPressed() 
 	{
@@ -96,15 +155,22 @@ public class CageCluesVid extends Activity
 	protected void onStart()
 	{
 		super.onStart();
-		cageCluesVideo.seekTo(videoTime);
-		cageCluesVideo.start();
+//		if(!userPaused)
+//		{
+//			cageCluesVideo.seekTo(videoTime);
+//		}
+//		Log.d(TAG, "onstart userpause: " + String.valueOf(userPaused));
+//		Log.d(TAG, "onstart videotime: " + String.valueOf(cageCluesVideo.getCurrentPosition()));
 	}
 
 	@Override
 	protected void onStop()
 	{
 		super.onStop();
-		videoTime = 0;
+		if(!userPaused)
+		{
+			videoTime = 0;
+		}
 	}
 
 	@Override
@@ -112,13 +178,23 @@ public class CageCluesVid extends Activity
 	{
 		super.onPause();
 		cageCluesVideo.pause();
+		videoTime = cageCluesVideo.getCurrentPosition();
+		Log.d(TAG, "pause userpause: " + String.valueOf(userPaused));
+		Log.d(TAG, "pause videotime: " + String.valueOf(cageCluesVideo.getCurrentPosition()));
 	}
 
 	@Override 
 	protected void onResume()
 	{
 		super.onResume();
-		cageCluesVideo.start();
+		cageCluesVideo.seekTo(videoTime);
+		if(!userPaused)
+		{
+			cageCluesVideo.start();
+		}
+		
+		Log.d(TAG, "resume userpause: " + String.valueOf(userPaused));
+		Log.d(TAG, "resume videotime: " + String.valueOf(cageCluesVideo.getCurrentPosition()));
 	}
 
 	@Override
