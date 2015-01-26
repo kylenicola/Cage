@@ -35,7 +35,7 @@ public class CageCluesVid extends Activity
 		Log.d(TAG, "Starts CageCluesVid");
 
 		setContentView(R.layout.cage_clues);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		//getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		descriptions = getResources().getStringArray(R.array.cageclues_description);
 		descriptionsLen = descriptions.length;
@@ -60,7 +60,11 @@ public class CageCluesVid extends Activity
 					@Override
 					public void run() {
 
-						CageCluesVid.this.cageCluesCount += 1;
+						// If someone watches this 2^31-1 times...which i mean, just wow.
+						if(CageCluesVid.this.cageCluesCount + 1 < Integer.MAX_VALUE)
+						{
+							CageCluesVid.this.cageCluesCount += 1;
+						}
 						int cageCluesCount = CageCluesVid.this.cageCluesCount;
 						
 						
