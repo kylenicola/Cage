@@ -51,5 +51,13 @@
 	<string name="main_menu_rattlethecage">Rattle The Cage  </string>
 	<string name="main_menu_abcswithnics">ABC\'s With NIC  </string>
 	<string name="main_menu_cageclueswhatdidhelose">Cage Clues:\nWhat Did He Lose?  </string>
+	
+	<!-- Cage Clues -->
+	<string name="cageclues_view_count">View Count: </string>
+	<string name="cageclues_count">0</string>
+	<string name="cageclues_start">Start</string>
+	<string name="cageclues_description">Help solve this mystery!</string>
+	<string name="cageclues_continue">Continue</string>
+	
 
 </resources>

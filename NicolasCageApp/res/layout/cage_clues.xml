@@ -2,40 +2,58 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="@color/cage_clues_background" >
+   	android:background="@color/main_menu_background" >
+
+    <VideoView
+        android:id="@+id/cageclues_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/cage_clues_count"
+        android:id="@+id/cageclues_view_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:text="@string/zero"
-        android:textColor="@color/cage_clues_count"
-        android:textSize="30sp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="20sp"
+       	android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:text="@string/cageclues_view_count" />
 
-    <Button
-        android:id="@+id/button1"
+    <TextView
+        android:id="@+id/cageclues_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/cageclues_view_count"
+        android:textSize="20sp"
+       	android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:text="@string/cageclues_count" />
+    
+    <TextView 
+        android:id="@+id/cageclues_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cageclues_video"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+       	android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:text="@string/cageclues_description"/>
+
+    <TextView
+        android:id="@+id/cageclues_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:onClick="moveToQuiz"
-        android:text="@string/continue_to_score" />
-    
-    <LinearLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true">
-
-        <VideoView
-            android:id="@+id/cage_clues_video"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
-
-    </LinearLayout>
+        android:textSize="20sp"
+       	android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:text="@string/cageclues_continue" />
 
 </RelativeLayout>

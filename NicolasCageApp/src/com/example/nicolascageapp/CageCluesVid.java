@@ -22,6 +22,9 @@ public class CageCluesVid extends Activity
 	private int videoTime;
 
 	private int cageCluesCount; 
+	
+	public String[] descriptions;
+	public int descriptionsLen;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -33,9 +36,12 @@ public class CageCluesVid extends Activity
 
 		setContentView(R.layout.cage_clues);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		descriptions = getResources().getStringArray(R.array.cageclues_description);
+		descriptionsLen = descriptions.length;
 
 
-		cageCluesVideo = (VideoView) findViewById(R.id.cage_clues_video);
+		cageCluesVideo = (VideoView) findViewById(R.id.cageclues_video);
 		cageCluesVideo.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.i_lost_my_hand2));
 
 		// for count & loop
@@ -56,8 +62,18 @@ public class CageCluesVid extends Activity
 
 						CageCluesVid.this.cageCluesCount += 1;
 						int cageCluesCount = CageCluesVid.this.cageCluesCount;
-						TextView cageCluesCountView = (TextView) findViewById(R.id.cage_clues_count);
+						
+						
+						// update count
+						TextView cageCluesCountView = (TextView) findViewById(R.id.cageclues_count);
 						cageCluesCountView.setText(String.valueOf(cageCluesCount));
+						
+						// update description
+						if(cageCluesCount - 1 < CageCluesVid.this.descriptionsLen)
+						{
+							TextView cageCluesDescription = (TextView) findViewById(R.id.cageclues_description);
+							cageCluesDescription.setText(CageCluesVid.this.descriptions[cageCluesCount-1]);
+						}
 					}
 
 				});
