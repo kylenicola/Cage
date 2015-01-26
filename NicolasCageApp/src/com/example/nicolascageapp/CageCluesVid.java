@@ -48,7 +48,7 @@ public class CageCluesVid extends Activity
 		descriptionsLen = descriptions.length;
 
 
-		userPaused = false;
+		
 		cageCluesVideo = (VideoView) findViewById(R.id.cageclues_video);
 		cageCluesVideo.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.i_lost_my_hand2));
 
@@ -98,6 +98,7 @@ public class CageCluesVid extends Activity
 
 		});
 		
+		userPaused = false;
 		// If the video is clicked will play/pause
 		cageCluesVideo.setOnTouchListener(new OnTouchListener(){
 
@@ -154,15 +155,22 @@ public class CageCluesVid extends Activity
 	protected void onStart()
 	{
 		super.onStart();
-		cageCluesVideo.seekTo(videoTime);
-		
+//		if(!userPaused)
+//		{
+//			cageCluesVideo.seekTo(videoTime);
+//		}
+//		Log.d(TAG, "onstart userpause: " + String.valueOf(userPaused));
+//		Log.d(TAG, "onstart videotime: " + String.valueOf(cageCluesVideo.getCurrentPosition()));
 	}
 
 	@Override
 	protected void onStop()
 	{
 		super.onStop();
-		videoTime = 0;
+		if(!userPaused)
+		{
+			videoTime = 0;
+		}
 	}
 
 	@Override
@@ -170,16 +178,23 @@ public class CageCluesVid extends Activity
 	{
 		super.onPause();
 		cageCluesVideo.pause();
+		videoTime = cageCluesVideo.getCurrentPosition();
+		Log.d(TAG, "pause userpause: " + String.valueOf(userPaused));
+		Log.d(TAG, "pause videotime: " + String.valueOf(cageCluesVideo.getCurrentPosition()));
 	}
 
 	@Override 
 	protected void onResume()
 	{
 		super.onResume();
+		cageCluesVideo.seekTo(videoTime);
 		if(!userPaused)
 		{
 			cageCluesVideo.start();
 		}
+		
+		Log.d(TAG, "resume userpause: " + String.valueOf(userPaused));
+		Log.d(TAG, "resume videotime: " + String.valueOf(cageCluesVideo.getCurrentPosition()));
 	}
 
 	@Override
