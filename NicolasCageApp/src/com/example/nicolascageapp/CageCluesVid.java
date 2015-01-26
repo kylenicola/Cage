@@ -99,12 +99,16 @@ public class CageCluesVid extends Activity
 			videoTime = 0;
 		}
 	}
-
-	public void moveToQuiz(View view) {
+	
+	public void continueToQuiz(View view)
+	{
+		TextView cont = (TextView) view;
+		cont.setTextColor(android.graphics.Color.YELLOW);
 		Intent intent = new Intent(this, CageClues.class);
 		startActivity(intent);
+		
 	}
-
+	
 	@Override
 	public void onBackPressed() 
 	{
@@ -117,7 +121,7 @@ public class CageCluesVid extends Activity
 	{
 		super.onStart();
 		cageCluesVideo.seekTo(videoTime);
-		cageCluesVideo.start();
+		//cageCluesVideo.start();
 	}
 
 	@Override
@@ -138,7 +142,7 @@ public class CageCluesVid extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-		cageCluesVideo.start();
+		//cageCluesVideo.start();
 	}
 
 	@Override
