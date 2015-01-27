@@ -59,5 +59,8 @@
 	<string name="cageclues_description">Help find out what Nicolas Cage lost!</string>
 	<string name="cageclues_continue">Continue</string>
 	
+	<!-- Abcs with Nic -->
+	<string name="abcs_intro_info">Type along the Abc\'s while\n Nic&#8230;\'sings\' it</string>
+	
 
 </resources>

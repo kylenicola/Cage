@@ -2,407 +2,438 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"  >
-
-    <LinearLayout
+    android:orientation="vertical"
+    android:weightSum="1"
+    ><RelativeLayout
         android:id="@+id/movieView"
         android:layout_width="match_parent"
-        android:layout_height="135dp"
-        android:layout_weight="1.17"
-        android:orientation="horizontal" >
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/black" >
 
         <VideoView
             android:id="@+id/abcs_videoView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true" />
 
-    </LinearLayout>
-    <LinearLayout
+        <TextView
+            android:id="@+id/abcs_countAndLetter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/abcs_introDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            android:text="@string/abcs_intro_info"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/abcs_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/keyView"
         android:layout_width="match_parent"
         android:layout_height="135dp"
-        android:orientation="horizontal" >
+        android:layout_gravity="bottom|center"
+        android:background="@color/keyboard_background"
+        android:gravity="bottom|center" >
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="135dp"
-            android:layout_gravity="bottom|center"
-            android:layout_weight=".95"
-            android:background="@color/keyboard_background"
-            android:gravity="bottom|center" >
+        <Button
+            android:id="@+id/ButtonQ"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="false"
+            android:layout_marginTop="7dp"
+            android:gravity="center"
+            android:onClick="onLetterClick"
+            android:text="Q"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonQ"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="false"
-                android:layout_centerInParent="false"
-                android:layout_marginTop="7dp"             
-                android:textColor="@color/keyboard_letter"
-                android:gravity="center"
-                android:text="Q"
-                android:textStyle="bold"
-                android:typeface="monospace"
-                android:onClick="onLetterClick" />
+        <Button
+            android:id="@+id/ButtonW"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonQ"
+            android:layout_alignBottom="@+id/ButtonQ"
+            android:layout_toRightOf="@+id/ButtonQ"
+            android:onClick="onLetterClick"
+            android:text="W"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonW"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:layout_alignBaseline="@+id/ButtonQ"
-                android:layout_alignBottom="@+id/ButtonQ"
-                android:layout_toRightOf="@+id/ButtonQ"
-                android:textColor="@color/keyboard_letter"
-                android:text="W"
-                android:textStyle="bold"
-                android:onClick="onLetterClick"
-        		android:typeface="monospace" />
+        <Button
+            android:id="@+id/ButtonE"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonW"
+            android:layout_alignBottom="@+id/ButtonW"
+            android:layout_toRightOf="@+id/ButtonW"
+            android:onClick="onLetterClick"
+            android:text="E"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonE"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-                android:textColor="@color/keyboard_letter"
-        		android:typeface="monospace"
-                android:layout_alignBaseline="@+id/ButtonW"
-                android:layout_alignBottom="@+id/ButtonW"
-                android:layout_toRightOf="@+id/ButtonW"
-                android:onClick="onLetterClick"
-                android:text="E" />
+        <Button
+            android:id="@+id/ButtonR"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonE"
+            android:layout_alignBottom="@+id/ButtonE"
+            android:layout_toRightOf="@+id/ButtonE"
+            android:onClick="onLetterClick"
+            android:text="R"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonR"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-                android:textColor="@color/keyboard_letter"
-        		android:typeface="monospace"
-                android:layout_alignBaseline="@+id/ButtonE"
-                android:layout_alignBottom="@+id/ButtonE"
-                android:layout_toRightOf="@+id/ButtonE"
-                android:onClick="onLetterClick"
-                android:text="R" />
+        <Button
+            android:id="@+id/ButtonT"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonR"
+            android:layout_alignBottom="@+id/ButtonR"
+            android:layout_toRightOf="@+id/ButtonR"
+            android:onClick="onLetterClick"
+            android:text="T"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonT"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-                android:textColor="@color/keyboard_letter"
-        		android:typeface="monospace"
-                android:layout_alignBaseline="@+id/ButtonR"
-                android:layout_alignBottom="@+id/ButtonR"
-                android:layout_toRightOf="@+id/ButtonR"
-                android:onClick="onLetterClick"
-                android:text="T" />
+        <Button
+            android:id="@+id/ButtonY"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonT"
+            android:layout_alignBottom="@+id/ButtonT"
+            android:layout_toRightOf="@+id/ButtonT"
+            android:onClick="onLetterClick"
+            android:text="Y"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonY"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonT"
-                android:layout_alignBottom="@+id/ButtonT"
-                android:layout_toRightOf="@+id/ButtonT"
-                android:onClick="onLetterClick"
-                android:text="Y" />
+        <Button
+            android:id="@+id/ButtonU"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonY"
+            android:layout_alignBottom="@+id/ButtonY"
+            android:layout_toRightOf="@+id/ButtonY"
+            android:onClick="onLetterClick"
+            android:text="U"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonU"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonY"
-                android:layout_alignBottom="@+id/ButtonY"
-                android:layout_toRightOf="@+id/ButtonY"
-                android:onClick="onLetterClick"
-                android:text="U" />
+        <Button
+            android:id="@+id/ButtonI"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonU"
+            android:layout_alignBottom="@+id/ButtonU"
+            android:layout_toRightOf="@+id/ButtonU"
+            android:onClick="onLetterClick"
+            android:text="I"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonI"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonU"
-                android:layout_alignBottom="@+id/ButtonU"
-                android:layout_toRightOf="@+id/ButtonU"
-                android:onClick="onLetterClick"
-                android:text="I" />
+        <Button
+            android:id="@+id/ButtonO"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonI"
+            android:layout_alignBottom="@+id/ButtonI"
+            android:layout_toRightOf="@+id/ButtonI"
+            android:onClick="onLetterClick"
+            android:text="O"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonO"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonI"
-                android:layout_alignBottom="@+id/ButtonI"
-                android:layout_toRightOf="@+id/ButtonI"
-                android:onClick="onLetterClick"
-                android:text="O" />
+        <Button
+            android:id="@+id/ButtonA"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/ButtonW"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="2dp"
+            android:onClick="onLetterClick"
+            android:text="A"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonA"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/ButtonW"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="2dp"
-                android:onClick="onLetterClick"
-                android:text="A" />
+        <Button
+            android:id="@+id/ButtonD"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonS"
+            android:layout_alignBottom="@+id/ButtonS"
+            android:layout_toRightOf="@+id/ButtonS"
+            android:onClick="onLetterClick"
+            android:text="D"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonD"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonS"
-                android:layout_alignBottom="@+id/ButtonS"
-                android:layout_toRightOf="@+id/ButtonS"
-                android:onClick="onLetterClick"
-                android:text="D" />
+        <Button
+            android:id="@+id/ButtonS"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignTop="@+id/ButtonA"
+            android:layout_toRightOf="@+id/ButtonA"
+            android:onClick="onLetterClick"
+            android:text="S"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonS"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignTop="@+id/ButtonA"
-                android:layout_toRightOf="@+id/ButtonA"
-                android:onClick="onLetterClick"
-                android:text="S" />
+        <Button
+            android:id="@+id/ButtonF"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonD"
+            android:layout_alignBottom="@+id/ButtonD"
+            android:layout_toRightOf="@+id/ButtonD"
+            android:onClick="onLetterClick"
+            android:text="F"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonF"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonD"
-                android:layout_alignBottom="@+id/ButtonD"
-                android:layout_toRightOf="@+id/ButtonD"
-                android:onClick="onLetterClick"
-                android:text="F" />
+        <Button
+            android:id="@+id/ButtonG"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonF"
+            android:layout_alignBottom="@+id/ButtonF"
+            android:layout_toRightOf="@+id/ButtonF"
+            android:onClick="onLetterClick"
+            android:text="G"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonG"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonF"
-                android:layout_alignBottom="@+id/ButtonF"
-                android:layout_toRightOf="@+id/ButtonF"
-                android:onClick="onLetterClick"
-                android:text="G" />
+        <Button
+            android:id="@+id/ButtonH"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonG"
+            android:layout_alignBottom="@+id/ButtonG"
+            android:layout_toRightOf="@+id/ButtonG"
+            android:onClick="onLetterClick"
+            android:text="H"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonH"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonG"
-                android:layout_alignBottom="@+id/ButtonG"
-                android:layout_toRightOf="@+id/ButtonG"
-                android:onClick="onLetterClick"
-                android:text="H" />
+        <Button
+            android:id="@+id/ButtonJ"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonH"
+            android:layout_alignBottom="@+id/ButtonH"
+            android:layout_toRightOf="@+id/ButtonH"
+            android:onClick="onLetterClick"
+            android:text="J"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonJ"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonH"
-                android:layout_alignBottom="@+id/ButtonH"
-                android:layout_toRightOf="@+id/ButtonH"
-                android:onClick="onLetterClick"
-                android:text="J" />
+        <Button
+            android:id="@+id/ButtonK"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonJ"
+            android:layout_alignBottom="@+id/ButtonJ"
+            android:layout_toRightOf="@+id/ButtonJ"
+            android:onClick="onLetterClick"
+            android:text="K"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonK"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonJ"
-                android:layout_alignBottom="@+id/ButtonJ"
-                android:layout_toRightOf="@+id/ButtonJ"
-                android:onClick="onLetterClick"
-                android:text="K" />
+        <Button
+            android:id="@+id/ButtonL"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonK"
+            android:layout_alignBottom="@+id/ButtonK"
+            android:layout_toRightOf="@+id/ButtonK"
+            android:onClick="onLetterClick"
+            android:text="L"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonL"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonK"
-                android:layout_alignBottom="@+id/ButtonK"
-                android:layout_toRightOf="@+id/ButtonK"
-                android:onClick="onLetterClick"
-                android:text="L" />
+        <Button
+            android:id="@+id/ButtonZ"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/ButtonA"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/ButtonQ"
+            android:onClick="onLetterClick"
+            android:text="Z"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonZ"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_below="@+id/ButtonA"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/ButtonQ"
-                android:onClick="onLetterClick"
-                android:text="Z" />
+        <Button
+            android:id="@+id/ButtonC"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonX"
+            android:layout_alignBottom="@+id/ButtonX"
+            android:layout_alignParentLeft="false"
+            android:layout_toRightOf="@+id/ButtonX"
+            android:onClick="onLetterClick"
+            android:text="C"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonC"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonX"
-                android:layout_alignBottom="@+id/ButtonX"
-                android:layout_alignParentLeft="false"
-                android:layout_toRightOf="@+id/ButtonX"
-                android:onClick="onLetterClick"
-                android:text="C" />
+        <Button
+            android:id="@+id/ButtonB"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonV"
+            android:layout_alignBottom="@+id/ButtonV"
+            android:layout_toRightOf="@+id/ButtonV"
+            android:onClick="onLetterClick"
+            android:text="B"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonB"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonV"
-                android:layout_alignBottom="@+id/ButtonV"
-                android:layout_toRightOf="@+id/ButtonV"
-                android:onClick="onLetterClick"
-                android:text="B" />
+        <Button
+            android:id="@+id/ButtonM"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonN"
+            android:layout_alignBottom="@+id/ButtonN"
+            android:layout_toRightOf="@+id/ButtonN"
+            android:onClick="onLetterClick"
+            android:text="M"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonM"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonN"
-                android:layout_alignBottom="@+id/ButtonN"
-                android:layout_toRightOf="@+id/ButtonN"
-                android:onClick="onLetterClick"
-                android:text="M" />
+        <Button
+            android:id="@+id/ButtonX"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonZ"
+            android:layout_alignBottom="@+id/ButtonZ"
+            android:layout_alignParentLeft="false"
+            android:layout_toRightOf="@+id/ButtonZ"
+            android:onClick="onLetterClick"
+            android:text="X"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonX"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonZ"
-                android:layout_alignBottom="@+id/ButtonZ"
-                android:layout_alignParentLeft="false"
-                android:layout_toRightOf="@+id/ButtonZ"
-                android:onClick="onLetterClick"
-                android:text="X" />
+        <Button
+            android:id="@+id/ButtonN"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonB"
+            android:layout_alignBottom="@+id/ButtonB"
+            android:layout_toRightOf="@+id/ButtonB"
+            android:onClick="onLetterClick"
+            android:text="N"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonN"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonB"
-                android:layout_alignBottom="@+id/ButtonB"
-                android:layout_toRightOf="@+id/ButtonB"
-                android:onClick="onLetterClick"
-                android:text="N" />
+        <Button
+            android:id="@+id/ButtonV"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonC"
+            android:layout_alignBottom="@+id/ButtonC"
+            android:layout_toRightOf="@+id/ButtonC"
+            android:onClick="onLetterClick"
+            android:text="V"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
 
-            <Button
-                android:id="@+id/ButtonV"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonC"
-                android:layout_alignBottom="@+id/ButtonC"
-                android:layout_toRightOf="@+id/ButtonC"
-                android:onClick="onLetterClick"
-                android:text="V" />
-
-            <Button
-                android:id="@+id/ButtonP"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="32dp"
-                android:layout_height="40dp"
-                android:textStyle="bold"
-        		android:typeface="monospace"
-        		android:textColor="@color/keyboard_letter"
-                android:layout_alignBaseline="@+id/ButtonO"
-                android:layout_alignBottom="@+id/ButtonO"
-                android:layout_toRightOf="@+id/ButtonO"
-                android:onClick="onLetterClick"
-                android:text="P" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    
+        <Button
+            android:id="@+id/ButtonP"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="32dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@+id/ButtonO"
+            android:layout_alignBottom="@+id/ButtonO"
+            android:layout_toRightOf="@+id/ButtonO"
+            android:onClick="onLetterClick"
+            android:text="P"
+            android:textColor="@color/keyboard_letter"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+    </RelativeLayout>
 
 </LinearLayout>
