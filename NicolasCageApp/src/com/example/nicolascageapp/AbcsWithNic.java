@@ -69,10 +69,11 @@ public class AbcsWithNic extends Activity
 	private final int NUM_LETTERS = 26;
 
 	// intro info
-	private TextView abcsIntroDescr;
+	private TextView abcsIntroDescrView;
 	
 	// count and letter view
-	private TextView countAndLetter;
+	private TextView countAndLetterView;
+	private TextView scoreView;
 
 	private void fillLetterTimesAndClicked()
 	{		   		   
@@ -89,6 +90,7 @@ public class AbcsWithNic extends Activity
 		// Vibrate for touch
 		vibrator.vibrate(buttonVibrateTime);
 
+		TextView tv = (TextView) v;
 		int letter = v.getId();
 		int score = 0;
 
@@ -101,7 +103,9 @@ public class AbcsWithNic extends Activity
 			{
 				score = 100;
 				letterClicked.put(letter, true);
-				
+				countAndLetterView.setTextColor(android.graphics.Color.WHITE);
+				countAndLetterView.setText(tv.getText());
+				scoreView.setTextColor(android.graphics.Color.WHITE);
 			}
 		}
 		else if(differenceTime < 1000)
@@ -110,10 +114,16 @@ public class AbcsWithNic extends Activity
 			{
 				score = 50;
 				letterClicked.put(letter, true);
+				countAndLetterView.setTextColor(android.graphics.Color.WHITE);
+				countAndLetterView.setText(tv.getText());
+				scoreView.setTextColor(android.graphics.Color.WHITE);
 			}
 		}
 		else
 		{
+			countAndLetterView.setTextColor(android.graphics.Color.RED);
+			countAndLetterView.setText(tv.getText());
+			scoreView.setTextColor(android.graphics.Color.RED);
 			score = -25;
 		}
 
@@ -124,6 +134,7 @@ public class AbcsWithNic extends Activity
 
 		// update player score
 		playerScore += score;
+		scoreView.setText(String.valueOf(score));
 
 		// change a text to show score
 	}
@@ -145,8 +156,10 @@ public class AbcsWithNic extends Activity
 		myVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.abcs_video));
 		//myVideoView.start();
 
-		
-		abcsIntroDescr = (TextView) findViewById(R.id.abcs_introDescription);
+		// Text views that will change
+		abcsIntroDescrView = (TextView) findViewById(R.id.abcs_introDescription);
+		countAndLetterView = (TextView) findViewById(R.id.abcs_countAndLetter);
+		scoreView = (TextView) findViewById(R.id.abcs_score);
 		
 		fillLetterTimesAndClicked();
 
@@ -184,7 +197,7 @@ public class AbcsWithNic extends Activity
 	public void intro()
 	{
 		// animation
-		final ObjectAnimator anim = ObjectAnimator.ofFloat(abcsIntroDescr, "alpha", 1, 0);
+		final ObjectAnimator anim = ObjectAnimator.ofFloat(abcsIntroDescrView, "alpha", 1, 0);
 		anim.setStartDelay(1000);
 		anim.setDuration(1500);
 		anim.setInterpolator(new LinearInterpolator());
@@ -208,7 +221,7 @@ public class AbcsWithNic extends Activity
 			}
 			
 		});
-		abcsIntroDescr.setOnTouchListener(new OnTouchListener(){
+		abcsIntroDescrView.setOnTouchListener(new OnTouchListener(){
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
