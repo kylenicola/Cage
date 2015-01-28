@@ -26,10 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
             android:textColor="@android:color/white"
-            android:textSize="25sp"
+            android:textSize="35sp"
             android:textStyle="bold" />
 
         <TextView
@@ -41,7 +41,7 @@
             android:gravity="center_horizontal"
             android:text="@string/abcs_intro_info"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <TextView
@@ -50,9 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
-            android:textSize="25sp"
+            android:textSize="35sp"
             android:textStyle="bold" />
 
     </RelativeLayout>

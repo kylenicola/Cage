@@ -70,7 +70,7 @@ public class AbcsWithNic extends Activity
 
 	// intro info
 	private TextView abcsIntroDescrView;
-	
+
 	// count and letter view
 	private TextView countAndLetterView;
 	private TextView scoreView;
@@ -87,56 +87,56 @@ public class AbcsWithNic extends Activity
 
 	public void onLetterClick(View v)
 	{
-		// Vibrate for touch
-		vibrator.vibrate(buttonVibrateTime);
-
-		TextView tv = (TextView) v;
-		int letter = v.getId();
-		int score = 0;
-
-		currentPosition = myVideoView.getCurrentPosition();
-		differenceTime = Math.abs(currentPosition - letterTimes.get(letter));
-
-		if(differenceTime < 500)
+		if(myVideoView.isPlaying())
 		{
-			if(!letterClicked.get(letter))
+			// Vibrate for touch
+			vibrator.vibrate(buttonVibrateTime);
+
+			TextView tv = (TextView) v;
+			int letter = v.getId();
+			int score = 0;
+			int color = 0;
+
+			currentPosition = myVideoView.getCurrentPosition();
+			differenceTime = Math.abs(currentPosition - letterTimes.get(letter));
+
+			if(differenceTime < 1000)
 			{
-				score = 100;
-				letterClicked.put(letter, true);
-				countAndLetterView.setTextColor(android.graphics.Color.WHITE);
-				countAndLetterView.setText(tv.getText());
-				scoreView.setTextColor(android.graphics.Color.WHITE);
+				color = android.graphics.Color.WHITE;
+				if(!letterClicked.get(letter))
+				{
+					if(differenceTime < 500)
+					{
+						score = 100;
+					}
+					else
+					{
+						score = 50;
+					}
+					
+					// mark as clicked
+					letterClicked.put(letter, true);
+				}
 			}
-		}
-		else if(differenceTime < 1000)
-		{
-			if(!letterClicked.get(letter))
+			else
 			{
-				score = 50;
-				letterClicked.put(letter, true);
-				countAndLetterView.setTextColor(android.graphics.Color.WHITE);
-				countAndLetterView.setText(tv.getText());
-				scoreView.setTextColor(android.graphics.Color.WHITE);
+				color = android.graphics.Color.RED;
+				score = -25;
 			}
-		}
-		else
-		{
-			countAndLetterView.setTextColor(android.graphics.Color.RED);
+
+			// change on screen info
+			countAndLetterView.setTextColor(color);
 			countAndLetterView.setText(tv.getText());
-			scoreView.setTextColor(android.graphics.Color.RED);
-			score = -25;
+			scoreView.setTextColor(color);
+			scoreView.setText(String.valueOf(score));
+			
+			Log.d(TAG, "Difference time: " + String.valueOf(differenceTime));
+			Log.d(TAG, "Letter time: " + String.valueOf(letterTimes.get(letter)));
+			Log.d(TAG, "Progress: " + String.valueOf(myVideoView.getCurrentPosition()));
+
+			// update player score
+			playerScore += score;
 		}
-
-
-		Log.d(TAG, "Difference time: " + String.valueOf(differenceTime));
-		Log.d(TAG, "Letter time: " + String.valueOf(letterTimes.get(letter)));
-		Log.d(TAG, "Progress: " + String.valueOf(myVideoView.getCurrentPosition()));
-
-		// update player score
-		playerScore += score;
-		scoreView.setText(String.valueOf(score));
-
-		// change a text to show score
 	}
 
 	/** Called when the activity is first created. */
@@ -160,10 +160,8 @@ public class AbcsWithNic extends Activity
 		abcsIntroDescrView = (TextView) findViewById(R.id.abcs_introDescription);
 		countAndLetterView = (TextView) findViewById(R.id.abcs_countAndLetter);
 		scoreView = (TextView) findViewById(R.id.abcs_score);
-		
+
 		fillLetterTimesAndClicked();
-
-
 
 		myVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() 
 		{
@@ -194,6 +192,7 @@ public class AbcsWithNic extends Activity
 
 	}
 
+	// This is the intro animation.
 	public void intro()
 	{
 		// animation
@@ -209,7 +208,11 @@ public class AbcsWithNic extends Activity
 
 			@Override
 			public void onAnimationEnd(Animator animation) {
+				// start video
 				myVideoView.start();
+
+				// make sure you can't click on it again.
+				abcsIntroDescrView.setOnTouchListener(null);
 			}
 
 			@Override
@@ -219,7 +222,7 @@ public class AbcsWithNic extends Activity
 			@Override
 			public void onAnimationRepeat(Animator animation) {
 			}
-			
+
 		});
 		abcsIntroDescrView.setOnTouchListener(new OnTouchListener(){
 
@@ -228,7 +231,7 @@ public class AbcsWithNic extends Activity
 				anim.end();
 				return false;
 			}
-			
+
 		});
 		anim.start();
 	}
@@ -244,16 +247,16 @@ public class AbcsWithNic extends Activity
 		Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}
-	
+
 	@Override
 	public void onStart()
 	{
 		super.onStart();
-		
+
 		// start animation
 		intro();
 	}
-	
+
 	@Override
 	public void onPause()
 	{
