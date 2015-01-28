@@ -26,8 +26,10 @@ public class CageCluesVid extends Activity
 	private int videoTime;
 	private boolean userPaused;
 
+	// count
 	private int cageCluesCount; 
 	
+	// for descriptions
 	public String[] descriptions;
 	public int descriptionsLen;
 	
