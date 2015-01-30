@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/standard_background"
@@ -7,94 +7,98 @@
 
     <!-- scores -->
 
-    <LinearLayout
-        android:id="@+id/scores_layout_top"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:weightSum="3" >
-
-        <TextView
-            android:id="@+id/scores_rattle_score"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="1" />
-
-        <TextView
-            android:id="@+id/scores_abcs_score"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="2" />
-
-        <TextView
-            android:id="@+id/scores_cageclues_score"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="3" />
-    </LinearLayout>
-
     <!-- should friggen work -->
-
-    <RelativeLayout
-        android:id="@+id/scores_layout_mid"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3" >
-
-        <ProgressBar
-            android:id="@+id/progressBar1"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
-
-    </RelativeLayout>
 
     <!-- reward buttons -->
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Back"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Rattle The Cage"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff00"
+        android:textStyle="bold" />
+
     <LinearLayout
-        android:id="@+id/scores_layout_bottom"
+        android:id="@+id/stats_rattlethecage_best_time"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal" >
-
-        <TextView
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" >
+        <TextView 
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="1"
-            android:textColor="#ff888888" />
-
-        <TextView
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            android:text="Best Time:"
+            android:textColor="@android:color/white"
+            />
+        <TextView 
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="2"
-            android:textColor="@android:color/white" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="3"
-            android:textColor="@android:color/white" />
+            android:gravity="left"
+            android:layout_marginLeft="10dp"
+            android:text="time"
+            android:textColor="@android:color/white"
+            />
+        
     </LinearLayout>
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/stats_abcswithnic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stats_rattlethecage_best_time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Abc\'s with Nic"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff00"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stats_abcswithnic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" >
+        <TextView 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            android:text="High Score:"
+            android:textColor="@android:color/white"
+            />
+        <TextView 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:layout_marginLeft="10dp"
+            android:text="Score"
+            android:textColor="@android:color/white"
+            />
+        
+    </LinearLayout>
+
+</RelativeLayout>
