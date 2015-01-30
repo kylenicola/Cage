@@ -51,6 +51,7 @@
     <string name="rattle_text_neg_3"></string>
     <string name="rattle_text_neg_4">You such a disappointment</string>
     <string name="settings_dialog_title">Settings</string>
+
     <string name="zero">0</string>
     <string name="continue_to_score">Continue</string>
     <string name="main_menu_rattlecage_description">Nicolas Cage\'s Face</string>
@@ -73,5 +74,8 @@
     <string name="stats_cageclues">Cage Clues:\nWhat Did He Lose?</string>
     <string name="stats_cageclues_mystery_solved">Mystery Solved:</string>
     <string name="stats_cageclues_times_watched">Times Watched:</string>
+    
+    <!-- Abcs with Nic -->
+	<string name="abcs_intro_info">Type along the Abc\'s while\n Nic&#8230;\'sings\' it</string>
 
 </resources>

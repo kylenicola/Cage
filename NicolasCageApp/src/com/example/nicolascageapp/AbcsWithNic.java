@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.animation.Animator;
+import android.animation.Animator.AnimatorListener;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +20,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -61,6 +68,13 @@ public class AbcsWithNic extends Activity
 
 	private final int NUM_LETTERS = 26;
 
+	// intro info
+	private TextView abcsIntroDescrView;
+
+	// count and letter view
+	private TextView countAndLetterView;
+	private TextView scoreView;
+
 	private void fillLetterTimesAndClicked()
 	{		   		   
 		Resources res = getResources();
@@ -73,45 +87,56 @@ public class AbcsWithNic extends Activity
 
 	public void onLetterClick(View v)
 	{
-		// Vibrate for touch
-		vibrator.vibrate(buttonVibrateTime);
+		if(myVideoView.isPlaying())
+		{
+			// Vibrate for touch
+			vibrator.vibrate(buttonVibrateTime);
 
-				int letter = v.getId();
-				int score = 0;
+			TextView tv = (TextView) v;
+			int letter = v.getId();
+			int score = 0;
+			int color = 0;
 
-				currentPosition = myVideoView.getCurrentPosition();
-				differenceTime = Math.abs(currentPosition - letterTimes.get(letter));
+			currentPosition = myVideoView.getCurrentPosition();
+			differenceTime = Math.abs(currentPosition - letterTimes.get(letter));
 
-				if(differenceTime < 500)
+			if(differenceTime < 1000)
+			{
+				color = android.graphics.Color.WHITE;
+				if(!letterClicked.get(letter))
 				{
-					if(!letterClicked.get(letter))
+					if(differenceTime < 500)
 					{
 						score = 100;
-						letterClicked.put(letter, true);
 					}
-				}
-				else if(differenceTime < 1000)
-				{
-					if(!letterClicked.get(letter))
+					else
 					{
 						score = 50;
-						letterClicked.put(letter, true);
 					}
+					
+					// mark as clicked
+					letterClicked.put(letter, true);
 				}
-				else
-				{
-					score = -25;
-				}
+			}
+			else
+			{
+				color = android.graphics.Color.RED;
+				score = -25;
+			}
 
+			// change on screen info
+			countAndLetterView.setTextColor(color);
+			countAndLetterView.setText(tv.getText());
+			scoreView.setTextColor(color);
+			scoreView.setText(String.valueOf(score));
+			
+			Log.d(TAG, "Difference time: " + String.valueOf(differenceTime));
+			Log.d(TAG, "Letter time: " + String.valueOf(letterTimes.get(letter)));
+			Log.d(TAG, "Progress: " + String.valueOf(myVideoView.getCurrentPosition()));
 
-				Log.d(TAG, "Difference time: " + String.valueOf(differenceTime));
-				Log.d(TAG, "Letter time: " + String.valueOf(letterTimes.get(letter)));
-				Log.d(TAG, "Progress: " + String.valueOf(myVideoView.getCurrentPosition()));
-
-				// update player score
-				playerScore += score;
-
-				// change a text to show score
+			// update player score
+			playerScore += score;
+		}
 	}
 
 	/** Called when the activity is first created. */
@@ -129,12 +154,14 @@ public class AbcsWithNic extends Activity
 
 		myVideoView = (VideoView)findViewById(R.id.abcs_videoView);
 		myVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.abcs_video));
-		myVideoView.start();
+		//myVideoView.start();
 
+		// Text views that will change
+		abcsIntroDescrView = (TextView) findViewById(R.id.abcs_introDescription);
+		countAndLetterView = (TextView) findViewById(R.id.abcs_countAndLetter);
+		scoreView = (TextView) findViewById(R.id.abcs_score);
 
 		fillLetterTimesAndClicked();
-
-
 
 		myVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() 
 		{
@@ -162,6 +189,50 @@ public class AbcsWithNic extends Activity
 
 	}
 
+	// This is the intro animation.
+	public void intro()
+	{
+		// animation
+		final ObjectAnimator anim = ObjectAnimator.ofFloat(abcsIntroDescrView, "alpha", 1, 0);
+		anim.setStartDelay(1000);
+		anim.setDuration(1500);
+		anim.setInterpolator(new LinearInterpolator());
+		anim.addListener(new AnimatorListener(){
+
+			@Override
+			public void onAnimationStart(Animator animation) {
+			}
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				// start video
+				myVideoView.start();
+
+				// make sure you can't click on it again.
+				abcsIntroDescrView.setOnTouchListener(null);
+			}
+
+			@Override
+			public void onAnimationCancel(Animator animation) {
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator animation) {
+			}
+
+		});
+		abcsIntroDescrView.setOnTouchListener(new OnTouchListener(){
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				anim.end();
+				return false;
+			}
+
+		});
+		anim.start();
+	}
+
 	public int getPlayerScore()
 	{
 		return playerScore;
@@ -173,6 +244,7 @@ public class AbcsWithNic extends Activity
 		Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}
+
 	
 	private void updatePrefs()
 	{
@@ -184,7 +256,22 @@ public class AbcsWithNic extends Activity
 			ed.putInt(Stats.ABCSWITHNIC_BEST_SCORE, playerScore);
 			ed.commit();
 		}
+	}
 
+
+	@Override
+	public void onStart()
+	{
+		super.onStart();
+
+		// start animation
+		intro();
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
 	}
 }
 
