@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -49,8 +50,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_menu);
-
-
 
 		final ImageView cageFace = (ImageView) findViewById(R.id.cageFace);
 		final TextView rattleTheCageText = (TextView) findViewById(R.id.rattlethecage);
@@ -408,6 +407,14 @@ public class MainActivity extends Activity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void goToStats(View v)
+	{
+		TextView tv = (TextView) v;
+		tv.setTextColor(android.graphics.Color.YELLOW);
+		Intent intent = new Intent(this, Stats.class);
+		startActivity(intent);
 	}
 }		
 

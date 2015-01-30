@@ -181,7 +181,7 @@ public class AbcsWithNic extends Activity
 		if(curBestScore < playerScore)
 		{
 			Editor ed = prefs.edit();
-			ed.putLong(Stats.ABCSWITHNIC_BEST_SCORE, playerScore);
+			ed.putInt(Stats.ABCSWITHNIC_BEST_SCORE, playerScore);
 			ed.commit();
 		}
 

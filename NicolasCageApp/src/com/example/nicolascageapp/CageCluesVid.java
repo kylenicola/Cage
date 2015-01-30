@@ -2,6 +2,8 @@ package com.example.nicolascageapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
@@ -139,8 +141,14 @@ public class CageCluesVid extends Activity
 	
 	public void continueToQuiz(View view)
 	{
+		// update prefs
+		updatePrefs();
+		
+		// set text yellow
 		TextView cont = (TextView) view;
 		cont.setTextColor(android.graphics.Color.YELLOW);
+		
+		// move to quiz
 		Intent intent = new Intent(this, CageClues.class);
 		startActivity(intent);
 		
@@ -204,6 +212,19 @@ public class CageCluesVid extends Activity
 		savedInstanceState.putInt(CAGE_CLUES_VIDEO_TIME, cageCluesVideo.getCurrentPosition());
 
 		super.onSaveInstanceState(savedInstanceState);
+	}
+	
+	private void updatePrefs()
+	{
+		SharedPreferences prefs = this.getSharedPreferences("mPrefs", 0);
+		int curTimesWatched = prefs.getInt(Stats.CAGECLUES_TIMES_WATCH, 0);
+		if(curTimesWatched < cageCluesCount)
+		{
+			Editor ed = prefs.edit();
+			ed.putInt(Stats.CAGECLUES_TIMES_WATCH, cageCluesCount);
+			ed.commit();
+		}
+
 	}
 
 }

@@ -129,6 +129,22 @@
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/mainmenu_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cageclueswhatdidhelose"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:clickable="true"
+            android:onClick="goToStats"
+            android:text="Stats"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:color="@android:color/white" />
 
     </RelativeLayout>
 
