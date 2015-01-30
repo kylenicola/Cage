@@ -30,11 +30,15 @@ public class MovingCage extends View {
 	// velocity decrease
 	private final double VEL_DECREASE = -.9;
 	
-	// times
+	// times used while moving
 	private long mStartTime;
 	private long mLastVelocityOkayTime;
 	private long mTotalDuration;
 	private final long WAIT_TIME = 1500;
+	
+	// times used to calculate entire duration, not just duration moving
+	private long mEntireStartTime;
+	private long mEntireTotalTime;
 	
 	// If cage is slowing his roll
 	public boolean isSlowing;
@@ -74,6 +78,9 @@ public class MovingCage extends View {
 		this.isSlowing = false;
 		vibrator = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
 		
+		mEntireStartTime = -1;
+		mEntireTotalTime = 0;
+		
 	}
 	
 	public void setXVelocity(float x_velocity)
@@ -98,6 +105,11 @@ public class MovingCage extends View {
 	public long getTotalTimeMoving()
 	{
 		return mTotalDuration;
+	}
+	
+	public long getEntireTotalTime()
+	{
+		return mEntireTotalTime;
 	}
 	
 	public void setX(float x)
@@ -164,6 +176,10 @@ public class MovingCage extends View {
 		{
 			mStartTime = now;
 		}
+		if(mEntireStartTime < 0)
+		{
+			mEntireStartTime = now;
+		}
 		
 		if(!onTouch)
 		{
@@ -202,6 +218,7 @@ public class MovingCage extends View {
 			isSlowing = false;
 			mLastVelocityOkayTime = now;
 			mTotalDuration = now - mStartTime;
+			mEntireTotalTime = now - mEntireStartTime;
 		}
 		else
 		{

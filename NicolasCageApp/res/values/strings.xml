@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- App Name -->
     <string name="app_name">Nicolas Cage App</string>
+
+    <!-- Standard -->
+    <string name="std_yes">Yes</string>
+    <string name="std_no">No</string>
+    <string name="std_back">Back</string>
+    <string name="std_continue">Continue</string>
     
+    <!-- Unorganized Mess -->
     <string name="action_settings">Settings</string>
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
@@ -31,8 +39,6 @@
     <string name="help_dialog_title">Help</string>
     <string name="help_dialog_description">Go watch some Nicolas Cage movies you dummy</string>
     <string name="quit_question">Are you sure you want to quit?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
     <string name="hi_score">RECORD:</string>
     <string name="most_recent_score">MOST RECENT:</string>
     <string name="perf_priceless">PRICELESS</string>
@@ -45,19 +51,27 @@
     <string name="rattle_text_neg_3"></string>
     <string name="rattle_text_neg_4">You such a disappointment</string>
     <string name="settings_dialog_title">Settings</string>
-	<string name="zero">0</string>
-	<string name="continue_to_score">Continue</string>
-	<string name="main_menu_rattlecage_description">Nicolas Cage\'s Face</string>
-	<string name="main_menu_rattlethecage">Rattle The Cage  </string>
-	<string name="main_menu_abcswithnics">ABC\'s With NIC  </string>
-	<string name="main_menu_cageclueswhatdidhelose">Cage Clues:\nWhat Did He Lose?  </string>
-	
-	<!-- Cage Clues -->
-	<string name="cageclues_view_count">View Count: </string>
-	<string name="cageclues_count">0</string>
-	<string name="cageclues_start">Start</string>
-	<string name="cageclues_description">Help find out what Nicolas Cage lost!</string>
-	<string name="cageclues_continue">Continue</string>
-	
+    <string name="zero">0</string>
+    <string name="continue_to_score">Continue</string>
+    <string name="main_menu_rattlecage_description">Nicolas Cage\'s Face</string>
+    <string name="main_menu_rattlethecage">Rattle The Cage  </string>
+    <string name="main_menu_abcswithnics">ABC\'s With NIC  </string>
+    <string name="main_menu_cageclueswhatdidhelose">Cage Clues:\nWhat Did He Lose?  </string>
+
+    <!-- Cage Clues -->
+    <string name="cageclues_view_count">View Count: </string>
+    <string name="cageclues_count">0</string>
+    <string name="cageclues_start">Start</string>
+    <string name="cageclues_description">Help find out what Nicolas Cage lost!</string>
+    <string name="cageclues_continue">Continue</string>
+
+    <!-- Stats -->
+    <string name="stats_rattlethecage">Rattle The Cage</string>
+    <string name="stats_rattlethecage_best_time">Best Time:</string>
+    <string name="stats_abcswithnic">Abc\'s With Nic</string>
+    <string name="stats_abcswithnic_high_score">High Score:</string>
+    <string name="stats_cageclues">Cage Clues:\nWhat Did He Lose?</string>
+    <string name="stats_cageclues_mystery_solved">Mystery Solved:</string>
+    <string name="stats_cageclues_times_watched">Times Watched:</string>
 
 </resources>

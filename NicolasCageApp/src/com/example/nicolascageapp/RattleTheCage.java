@@ -8,6 +8,8 @@ import java.util.TimerTask;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -262,6 +264,10 @@ public class RattleTheCage extends Activity {
 
 			if(totalTimeMoving > sixth_time)
 			{
+				// to store time
+				updatePrefs();
+				
+				// move to next activity
 				Intent intent = new Intent(RattleTheCage.this, RattleTheCageVideo.class);
 				startActivity(intent);
 			}
@@ -409,4 +415,17 @@ public class RattleTheCage extends Activity {
 		}
 	}
 
+	private void updatePrefs()
+	{
+		SharedPreferences prefs = this.getSharedPreferences("mPrefs", 0);
+		long curBestTime = prefs.getLong(Stats.RATTLETHECAGE_BEST_TIME, 0);
+		long time = movingCage.getEntireTotalTime();
+		if(curBestTime < time)
+		{
+			Editor ed = prefs.edit();
+			ed.putLong(Stats.RATTLETHECAGE_BEST_TIME, time);
+			ed.commit();
+		}
+
+	}
 }

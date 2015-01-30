@@ -298,12 +298,12 @@ public class MainActivity extends Activity {
 
 	private Dialog createQuitDialog(Builder builder) {
 		builder.setMessage(R.string.quit_question).setCancelable(false)
-		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+		.setPositiveButton(R.string.std_yes, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				MainActivity.this.finish();
 			}
 		})
-		.setNegativeButton(R.string.no, null);   
+		.setNegativeButton(R.string.std_no, null);   
 		return builder.create();
 	}
 

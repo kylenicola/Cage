@@ -12,32 +12,36 @@
     <!-- reward buttons -->
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/stats_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:text="Back"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:onClick="backPressed"
+        android:text="@string/std_back"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/white" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/stats_rattlethecage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Rattle The Cage"
+        android:text="@string/stats_rattlethecage"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff00"
         android:textStyle="bold" />
 
     <LinearLayout
-        android:id="@+id/stats_rattlethecage_best_time"
+        android:id="@+id/stats_rattlethecage_best_time_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@id/stats_rattlethecage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" >
         <TextView 
@@ -45,17 +49,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:layout_marginRight="10dp"
-            android:text="Best Time:"
+            android:layout_marginRight="5dp"
+            android:text="@string/stats_rattlethecage_best_time"
             android:textColor="@android:color/white"
             />
         <TextView 
+            android:id="@+id/stats_rattlethecage_best_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:layout_marginLeft="10dp"
-            android:text="time"
+            android:layout_marginLeft="5dp"
+            android:text=""
             android:textColor="@android:color/white"
             />
         
@@ -66,15 +71,16 @@
         android:id="@+id/stats_abcswithnic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/stats_rattlethecage_best_time"
+        android:layout_below="@id/stats_rattlethecage_best_time_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Abc\'s with Nic"
+        android:text="@string/stats_abcswithnic"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#ffffff00"
         android:textStyle="bold" />
 
     <LinearLayout
+        android:id="@+id/stats_abcswithnic_high_score_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/stats_abcswithnic"
@@ -85,17 +91,88 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:layout_marginRight="10dp"
-            android:text="High Score:"
+            android:layout_marginRight="5dp"
+            android:text="@string/stats_abcswithnic_high_score"
             android:textColor="@android:color/white"
             />
         <TextView 
+            android:id="@+id/stats_abcswithnic_high_score"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:layout_marginLeft="10dp"
-            android:text="Score"
+            android:layout_marginLeft="5dp"
+            android:text=""
+            android:textColor="@android:color/white"
+            />
+        
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/stats_cageclues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stats_abcswithnic_high_score_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/stats_cageclues"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffff00"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/stats_cageclues_mystery_solved_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stats_cageclues"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" >
+        <TextView 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_marginRight="5dp"
+            android:text="@string/stats_cageclues_mystery_solved"
+            android:textColor="@android:color/white"
+            />
+        <TextView 
+            android:id="@+id/stats_cageclues_mystery_solved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:layout_marginLeft="5dp"
+            android:text=""
+            android:textColor="@android:color/white"
+            />
+        
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/stats_cageclues_times_watched_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stats_cageclues_mystery_solved_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp" >
+        <TextView 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_marginRight="5dp"
+            android:text="@string/stats_cageclues_times_watched"
+            android:textColor="@android:color/white"
+            />
+        <TextView
+            android:id="@+id/stats_cageclues_times_watched" 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:layout_marginLeft="5dp"
+            android:text=""
             android:textColor="@android:color/white"
             />
         

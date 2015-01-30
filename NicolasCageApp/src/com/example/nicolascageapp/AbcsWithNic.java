@@ -148,14 +148,11 @@ public class AbcsWithNic extends Activity
 					@Override
 					public void run() 
 					{
-						Editor editor = prefs.edit();
-						editor.putInt("abc_most_recent_score", getPlayerScore());
-						editor.commit();
-						String endToast = "Your score was: " + getPlayerScore();
-						Toast.makeText(AbcsWithNic.this, endToast, 
-								Toast.LENGTH_SHORT).show();
+						// save player score
+						updatePrefs();
+						
+						// move to new score
 						Intent intent = new Intent(getBaseContext(), ABCsScore.class);
-						intent.putExtra("playerScore", playerScore);
 						startActivity(intent);
 					}
 
@@ -175,6 +172,19 @@ public class AbcsWithNic extends Activity
 	{
 		Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
+	}
+	
+	private void updatePrefs()
+	{
+		SharedPreferences prefs = this.getSharedPreferences("mPrefs", 0);
+		int curBestScore = prefs.getInt(Stats.ABCSWITHNIC_BEST_SCORE, 0);
+		if(curBestScore < playerScore)
+		{
+			Editor ed = prefs.edit();
+			ed.putLong(Stats.ABCSWITHNIC_BEST_SCORE, playerScore);
+			ed.commit();
+		}
+
 	}
 }
 
