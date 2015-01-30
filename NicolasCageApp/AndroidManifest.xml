@@ -131,7 +131,7 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Scores"
+            android:name=".Stats"
             android:configChanges="orientation"
             android:screenOrientation="portrait" >
             <intent-filter>

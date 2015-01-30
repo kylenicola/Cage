@@ -3,13 +3,13 @@ package com.example.nicolascageapp;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class Scores extends Activity {
+public class Stats extends Activity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.scores);
+		setContentView(R.layout.stats);
 	}
 
 }
