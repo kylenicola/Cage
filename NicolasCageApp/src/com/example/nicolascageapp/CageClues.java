@@ -89,6 +89,16 @@ public class CageClues extends Activity
 						{
 							TextView cageCluesDescription = (TextView) findViewById(R.id.cageclues_description);
 							cageCluesDescription.setText(CageClues.this.descriptions[cageCluesCount-1]);
+							
+							// this is for the shia labeouf link
+							if(CageClues.this.descriptions[cageCluesCount-1].endsWith("Click here."))
+							{
+								cageCluesDescription.setClickable(true);
+							}
+							else
+							{
+								cageCluesDescription.setClickable(false);
+							}
 						}
 					}
 
@@ -152,6 +162,15 @@ public class CageClues extends Activity
 		Intent intent = new Intent(this, CageCluesQuiz.class);
 		startActivity(intent);
 		
+	}
+	
+	public void descriptionPressed(View v)
+	{
+		String url = "https://www.youtube.com/watch?v=o0u4M6vppCI";
+		Intent intent = new Intent();
+		intent.setAction(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse(url));
+		startActivity(intent);
 	}
 	
 	@Override

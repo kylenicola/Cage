@@ -27,7 +27,7 @@ public class CageCluesQuiz extends Activity
 	{
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.cage_clues_main);
+		setContentView(R.layout.cage_clues_quiz);
 		rg = (RadioGroup) findViewById(R.id.gameResponse);
 		rg.clearCheck();
 	}
