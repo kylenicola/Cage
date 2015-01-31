@@ -4,22 +4,32 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Stats extends Activity {
+	public static final String TAG = "Stats";
+	
 	// for sharedPrefs
-	public static String RATTLETHECAGE_BEST_TIME = "RattleTheCageBestTime";
-	public static String ABCSWITHNIC_BEST_SCORE = "AbcsWithNicBestScore";
-	public static String CAGECLUES_MYSTERY_SOLVED = "CageCluesMysterySolved";
-	public static String CAGECLUES_TIMES_WATCH = "CageCluesTimesWatched";
+	public static final String RATTLETHECAGE_BEST_TIME = "RattleTheCageBestTime";
+	public static final String ABCSWITHNIC_BEST_SCORE = "AbcsWithNicBestScore";
+	public static final String CAGECLUES_MYSTERY_SOLVED = "CageCluesMysterySolved";
+	public static final String CAGECLUES_TIMES_WATCH = "CageCluesTimesWatched";
+
+	
+	// in savedInstanceState
+	public static final String WHERE_FROM = "WhereFrom";
 	
 	// Where user came from
-	public static int MENU = 1;
-	public static int RATTLETHECAGE = 2;
-	public static int ABCSWITHNIC = 3;
-	public static int CAGECLUES = 4;
+	public static final int MENU = 1;
+	public static final int RATTLETHECAGE = 2;
+	public static final int ABCSWITHNIC = 3;
+	public static final int CAGECLUES = 4;
 	
 	// stats
 	private long bestTime;
@@ -33,6 +43,7 @@ public class Stats extends Activity {
 	private TextView mysterySolvedView;
 	private TextView timesWatchedView;
 	
+	Class c;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -49,7 +60,7 @@ public class Stats extends Activity {
 		// set textViews using stats
 		setStats();
 		
-		
+		setRefresh(getIntent().getExtras());
 	}
 	
 	private void getStats()
@@ -116,10 +127,63 @@ public class Stats extends Activity {
 
 //	public void backPressed(View v)
 //	{
-//		TextView backView = (TextView) findViewById(R.id.stats_back);
-//		backView.setTextColor(android.graphics.Color.YELLOW);
 //		onBackPressed();
 //	}
+	
+	public void setRefresh(Bundle extras)
+	{
+		int whereFrom;
+		if(extras != null)
+		{
+			
+			whereFrom = extras.getInt(WHERE_FROM, MENU);
+		}
+		else
+		{
+			whereFrom = MENU;
+		}
+		
+		Log.d(TAG, "where from: " + String.valueOf(whereFrom));
+		
+		// views to use
+		LinearLayout buttonOptionsMenu = (LinearLayout) findViewById(R.id.stats_button_options);
+		LinearLayout replayLayout = (LinearLayout) findViewById(R.id.stats_button_options_refresh);
+		ImageView replayImageView = (ImageView) findViewById(R.id.stats_refresh_image);
+		TextView replayTextView = (TextView) findViewById(R.id.stats_refresh_text);
+		switch(whereFrom)
+		{
+			case RATTLETHECAGE:
+				c = RattleTheCage.class;
+				break;
+			case ABCSWITHNIC:
+				c = AbcsWithNic.class;
+				break;
+			case CAGECLUES:
+				c = CageCluesVid.class;
+				break;
+			default:
+				Log.d(TAG, "reached here");
+				buttonOptionsMenu.removeView(replayLayout);
+//				statsLayout.removeView(replayLayout);
+				//replayLayout.removeAllViews();
+//				statsLayout.removeView(replayImageView);
+//				statsLayout.removeView(replayTextView);
+				
+				//statsLayout.invalidate();
+
+		}
+	}
+	
+	public void onRefreshPressed(View v)
+	{
+		Intent intent = new Intent(this, c).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+	}
+	
+	public void onBackPressed(View v)
+	{
+		onBackPressed();
+	}
 	
 	@Override
 	public void onBackPressed() {

@@ -68,8 +68,8 @@ public class RattleTheCageVideo extends Activity
 				editor.commit();
 
 
-				Intent intent = new Intent(RattleTheCageVideo.this, RattleTheCageScore.class);
-				intent.putExtra("score", RATTLE_SCORE);
+				Intent intent = new Intent(RattleTheCageVideo.this, Stats.class);
+				intent.putExtra(Stats.WHERE_FROM, Stats.RATTLETHECAGE);
 				startActivity(intent);
 			}
 		});
