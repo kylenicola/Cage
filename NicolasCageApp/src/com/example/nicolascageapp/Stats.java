@@ -1,6 +1,7 @@
 package com.example.nicolascageapp;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,7 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Stats extends Activity {
+public class Stats extends Activity implements 
+StatsClearPrefsDialogFragment.StatsClearPrefsDialogFragmentListener{
 	public static final String TAG = "Stats";
 
 	// for sharedPrefs
@@ -64,13 +66,7 @@ public class Stats extends Activity {
 
 		//getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		// get stats from shared prefs
-		getStats();
 
-		// set textViews using stats
-		setStats();
-
-		setRefresh(getIntent().getExtras());
 	}
 
 	private void getStats()
@@ -133,6 +129,8 @@ public class Stats extends Activity {
 			timesWatchedView.setText("Not enough");
 		}
 	}
+	
+
 
 	//private void 
 
@@ -170,10 +168,10 @@ public class Stats extends Activity {
 			switch(result)
 			{
 			case TIE:
-				msg = "Tied in time with your best...also known as failing.  don't fall beehind";
+				msg = "Tied in time with your best...also known as failing. beelieve in yourself";
 				break;
 			case WORSE:
-				msg = timeRattle + ".  Worse than your best.  need to beelieve in yourself.";
+				msg = "Worse than your best.  stop falling beehind";
 				break;
 			case BETTER:
 				msg = "BEEEEEEEEEEEEEEEEEEEEEEEEEEEAUTIFUL";
@@ -222,11 +220,7 @@ public class Stats extends Activity {
 		}
 	}
 
-	public void onRefreshPressed(View v)
-	{
-		Intent intent = new Intent(this, c).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(intent);
-	}
+	
 
 	public void onBackPressed(View v)
 	{
@@ -237,6 +231,49 @@ public class Stats extends Activity {
 	public void onBackPressed() {
 		Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
+	}
+
+	// For reset stats
+	@Override
+	public void onDialogPositiveClick(DialogFragment dialog) {
+		Log.d(TAG, "gets to Postiive Click");
+		resetStats();
+	}
+	
+	private void resetStats()
+	{
+		Log.d(TAG, "gets to resetStats");
+		getSharedPreferences("mPrefs", 0).edit().clear().commit();
+		getStats();
+		setStats();
+	}
+	
+	public void onResetPressed(View v)
+	{
+		Log.d(TAG, "onResetPressed");
+		DialogFragment newFragment = new StatsClearPrefsDialogFragment();
+		newFragment.show(getFragmentManager(), "resetStatsFragment");
+	}
+	
+	
+	// Go back to originating game
+	public void onRefreshPressed(View v)
+	{
+		Intent intent = new Intent(this, c).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(intent);
+	}
+	
+	@Override 
+	public void onStart()
+	{
+		super.onStart();
+		// get stats from shared prefs
+		getStats();
+
+		// set textViews using stats
+		setStats();
+
+		setRefresh(getIntent().getExtras());
 	}
 
 

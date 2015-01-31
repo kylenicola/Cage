@@ -26,6 +26,8 @@ import android.view.View.OnTouchListener;
 import android.widget.RelativeLayout;
 
 public class RattleTheCage extends Activity {
+	
+	private final static String TAG = "RattleTheCage";
 
 	// for shake listener
 	private SensorManager mSensorManager;
@@ -264,6 +266,8 @@ public class RattleTheCage extends Activity {
 
 			if(totalTimeMoving > sixth_time)
 			{
+				Log.d(TAG, "sixth time called.");
+				
 				// to store time
 				updatePrefs();
 				
@@ -417,14 +421,18 @@ public class RattleTheCage extends Activity {
 
 	private void updatePrefs()
 	{
+		Log.d(TAG, "prefs called");
 		SharedPreferences prefs = this.getSharedPreferences("mPrefs", 0);
 		long curBestTime = prefs.getLong(Stats.RATTLETHECAGE_BEST_TIME, 0);
 		long time = movingCage.getEntireTotalTime();
 		Editor ed = prefs.edit();
-		if(curBestTime > time)
+		Log.d(TAG, "time: " + String.valueOf(time));
+		Log.d(TAG, "Current best time: " + String.valueOf(curBestTime));
+		if(curBestTime > time || curBestTime == 0)
 		{
 			ed.putLong(Stats.RATTLETHECAGE_BEST_TIME, time);
 			ed.putInt(Stats.RESULT, Stats.BETTER);
+			
 		}
 		else if(curBestTime == time)
 		{

@@ -138,7 +138,6 @@ public class RattleTheCageVideo extends Activity
 					{
 						if(RattleTheCageVideo.this.continueTask)
 						{
-							Log.d(TAG, "switching background image");
 							LinearLayout bee_layout = (LinearLayout) findViewById(R.id.bees_layout);
 							BitmapDrawable bg = (BitmapDrawable) bee_layout.getBackground();
 							BitmapDrawable bees_1_bg = (BitmapDrawable) getResources().getDrawable(R.drawable.bees_1_repeat);
