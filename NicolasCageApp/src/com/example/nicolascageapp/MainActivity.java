@@ -237,7 +237,7 @@ public class MainActivity extends Activity {
 							handler.postDelayed(new Runnable() {
 								@Override
 								public void run() {
-									Intent intent = new Intent(getBaseContext(), CageCluesVid.class);
+									Intent intent = new Intent(getBaseContext(), CageClues.class);
 									startActivity(intent);
 								}
 							}, 250);
@@ -286,14 +286,6 @@ public class MainActivity extends Activity {
 		return builder.create();
 	}
 
-	private Dialog createHelpDialog(Builder builder) {
-		Context context = getApplicationContext();
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View layout = inflater.inflate(R.layout.main_action_help, null); 		
-		builder.setView(layout);
-		builder.setPositiveButton("OK", null);	
-		return builder.create();
-	}
 
 	private Dialog createQuitDialog(Builder builder) {
 		builder.setMessage(R.string.quit_question).setCancelable(false)
@@ -356,14 +348,10 @@ public class MainActivity extends Activity {
 		case DIALOG_ABOUT_ID:
 			dialog = createAboutDialog(builder);
 			break;
-		case DIALOG_HELP_ID:
-			dialog = createHelpDialog(builder);
-			break;
 		case DIALOG_QUIT_ID:
 			dialog = createQuitDialog(builder);
 			break;
 		case DIALOG_SETTINGS_ID:
-
 			dialog = createSettingsDialog(builder);
 			break;
 
@@ -387,25 +375,11 @@ public class MainActivity extends Activity {
 			showDialog(DIALOG_ABOUT_ID);
 			return true;
 		}
-		else if(id == R.id.action_help)
-		{
-			Log.d(TAG, "help clicked");
-			showDialog(DIALOG_HELP_ID);
-			return true;
-		}
 		else if(id == R.id.action_exit)
 		{
 			showDialog(DIALOG_QUIT_ID);
 			return true;
 		}
-		else if(id == R.id.action_scores)
-		{
-			Intent intent = new Intent(this, ScoreMenu.class);
-			startActivity(intent);
-			// Create intent to go to scores menu
-			return true;
-		}
-
 		return super.onOptionsItemSelected(item);
 	}
 	

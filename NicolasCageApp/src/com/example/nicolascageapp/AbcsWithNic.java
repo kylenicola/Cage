@@ -147,7 +147,7 @@ public class AbcsWithNic extends Activity
 
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-		setContentView(R.layout.activity_abcs_with_nic);
+		setContentView(R.layout.abcs_with_nic);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		final SharedPreferences prefs = this.getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE);

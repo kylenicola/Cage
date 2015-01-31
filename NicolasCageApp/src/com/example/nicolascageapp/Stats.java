@@ -77,7 +77,7 @@ StatsClearPrefsDialogFragment.StatsClearPrefsDialogFragmentListener{
 		bestTime = prefs.getLong(RATTLETHECAGE_BEST_TIME, -1);
 		bestScore = prefs.getInt(ABCSWITHNIC_BEST_SCORE, -1);
 		mysterySolved = prefs.getBoolean(CAGECLUES_MYSTERY_SOLVED, false);
-		timesWatched = prefs.getInt(CAGECLUES_TIMES_WATCH, 0);
+		timesWatched = prefs.getInt(CAGECLUES_TIMES_WATCH, -1);
 		result = prefs.getInt(RESULT, 0);
 	}
 
@@ -133,12 +133,6 @@ StatsClearPrefsDialogFragment.StatsClearPrefsDialogFragmentListener{
 	
 
 
-	//private void 
-
-	//	public void backPressed(View v)
-	//	{
-	//		onBackPressed();
-	//	}
 
 	public void setRefresh(Bundle extras)
 	{
@@ -200,7 +194,7 @@ StatsClearPrefsDialogFragment.StatsClearPrefsDialogFragmentListener{
 			t.show();
 			break;
 		case CAGECLUES:
-			c = CageCluesVid.class;
+			c = CageClues.class;
 			switch(result)
 			{
 			case TIE:
