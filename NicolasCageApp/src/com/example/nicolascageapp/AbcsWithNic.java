@@ -179,7 +179,8 @@ public class AbcsWithNic extends Activity
 						updatePrefs();
 						
 						// move to new score
-						Intent intent = new Intent(getBaseContext(), ABCsScore.class);
+						Intent intent = new Intent(getBaseContext(), Stats.class);
+						intent.putExtra(Stats.WHERE_FROM, Stats.ABCSWITHNIC);
 						startActivity(intent);
 					}
 

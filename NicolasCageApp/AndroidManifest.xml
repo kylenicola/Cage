@@ -133,7 +133,11 @@
         <activity
             android:name=".Stats"
             android:configChanges="orientation"
+            android:parentActivityName="com.example.nicolascageapp.MainActivity"
             android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.nicolascageapp.MainActvity" />
 
         </activity>
     </application>
