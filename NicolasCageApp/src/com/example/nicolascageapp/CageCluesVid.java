@@ -218,13 +218,21 @@ public class CageCluesVid extends Activity
 	{
 		SharedPreferences prefs = this.getSharedPreferences("mPrefs", 0);
 		int curTimesWatched = prefs.getInt(Stats.CAGECLUES_TIMES_WATCH, 0);
+		Editor ed = prefs.edit();
 		if(curTimesWatched < cageCluesCount)
 		{
-			Editor ed = prefs.edit();
 			ed.putInt(Stats.CAGECLUES_TIMES_WATCH, cageCluesCount);
-			ed.commit();
+			ed.putInt(Stats.RESULT, Stats.BETTER);
 		}
-
+		else if(curTimesWatched == cageCluesCount)
+		{
+			ed.putInt(Stats.RESULT, Stats.TIE);
+		}
+		else
+		{
+			ed.putInt(Stats.RESULT, Stats.WORSE);
+		}
+		ed.commit();
 	}
 
 }

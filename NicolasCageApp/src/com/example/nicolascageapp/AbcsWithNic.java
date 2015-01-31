@@ -251,12 +251,22 @@ public class AbcsWithNic extends Activity
 	{
 		SharedPreferences prefs = this.getSharedPreferences("mPrefs", 0);
 		int curBestScore = prefs.getInt(Stats.ABCSWITHNIC_BEST_SCORE, 0);
+		Editor ed = prefs.edit();
 		if(curBestScore < playerScore)
 		{
-			Editor ed = prefs.edit();
+
 			ed.putInt(Stats.ABCSWITHNIC_BEST_SCORE, playerScore);
-			ed.commit();
+			ed.putInt(Stats.RESULT, Stats.BETTER);
 		}
+		else if(curBestScore == playerScore)
+		{
+			ed.putInt(Stats.RESULT, Stats.TIE);
+		}
+		else
+		{
+			ed.putInt(Stats.RESULT, Stats.WORSE);
+		}
+		ed.commit();
 	}
 
 

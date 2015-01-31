@@ -420,12 +420,20 @@ public class RattleTheCage extends Activity {
 		SharedPreferences prefs = this.getSharedPreferences("mPrefs", 0);
 		long curBestTime = prefs.getLong(Stats.RATTLETHECAGE_BEST_TIME, 0);
 		long time = movingCage.getEntireTotalTime();
-		if(curBestTime < time)
+		Editor ed = prefs.edit();
+		if(curBestTime > time)
 		{
-			Editor ed = prefs.edit();
 			ed.putLong(Stats.RATTLETHECAGE_BEST_TIME, time);
-			ed.commit();
+			ed.putInt(Stats.RESULT, Stats.BETTER);
 		}
-
+		else if(curBestTime == time)
+		{
+			ed.putInt(Stats.RESULT, Stats.TIE);
+		}
+		else
+		{
+			ed.putInt(Stats.RESULT, Stats.WORSE);
+		}
+		ed.commit();
 	}
 }
