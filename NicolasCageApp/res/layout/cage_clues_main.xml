@@ -26,7 +26,6 @@
 	        android:id="@+id/radioButton1"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="0dp"
 	        android:layout_marginTop="10dp"
 	        android:onClick="onRadioButtonClicked"
 	        android:text="@string/abcs_answer_one"
@@ -36,7 +35,6 @@
 	        android:id="@+id/radioButton2"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="0dp"
 	        android:onClick="onRadioButtonClicked"
 	        android:text="@string/abcs_answer_two"
 	        android:textColor="@android:color/white" />
@@ -45,7 +43,6 @@
 	        android:id="@+id/radioButton3"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginLeft="0dp"
 	        android:onClick="onRadioButtonClicked"
 	        android:text="@string/abcs_answer_three"
 	        android:textColor="@android:color/white" />

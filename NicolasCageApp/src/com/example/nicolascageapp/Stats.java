@@ -97,7 +97,7 @@ public class Stats extends Activity {
 			long second = (bestTime / 1000) % 60;
 			long minute = (bestTime / (1000 * 60)) % 60;
 			long hour = (bestTime / (1000 * 60 * 60)) % 24;
-			timeRattle = String.format("%02d:%02d:%02d", hour, minute, second);
+			timeRattle = String.format("%02d:%02d:%02d:%d", hour, minute, second, bestTime % 1000);
 			bestTimeView.setText(timeRattle);
 		}
 		else
@@ -130,7 +130,7 @@ public class Stats extends Activity {
 		}
 		else
 		{
-			timesWatchedView.setText("NOT ENOUGH");
+			timesWatchedView.setText("Not enough");
 		}
 	}
 
@@ -187,13 +187,13 @@ public class Stats extends Activity {
 			switch(result)
 			{
 			case TIE:
-				msg = "Tie.  Meh";
+				msg = "Tied.  Meh";
 				break;
 			case WORSE:
-				msg = "can you spell failure?  Because your parents sure did make one.";
+				msg = "Can\nt even beat your best score.  can you spell failure?  Because your parents sure did make one.";
 				break;
 			case BETTER:
-				msg = "You can spell!  Wow!  So surprising!";
+				msg = "New Best Score!  You can spell!  Wow!  So surprising!";
 				break;
 			}
 			t = Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG);
