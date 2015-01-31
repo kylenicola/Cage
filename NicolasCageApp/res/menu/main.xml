@@ -14,7 +14,8 @@
         android:title="@string/action_about"/>
     <item
         android:id="@+id/action_exit"
-        android:showAsAction="never"
+        android:icon="@drawable/ic_action_cancel"
+        android:showAsAction="ifRoom"
         android:title="@string/action_exit"/>
     
     
