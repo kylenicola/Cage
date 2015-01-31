@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -161,6 +162,7 @@ StatsClearPrefsDialogFragment.StatsClearPrefsDialogFragmentListener{
 		TextView replayTextView = (TextView) findViewById(R.id.stats_refresh_text);
 		String msg = "";
 		Toast t;
+		Resources res = getResources();
 		switch(whereFrom)
 		{
 		case RATTLETHECAGE:
@@ -168,13 +170,13 @@ StatsClearPrefsDialogFragment.StatsClearPrefsDialogFragmentListener{
 			switch(result)
 			{
 			case TIE:
-				msg = "Tied in time with your best...also known as failing. beelieve in yourself";
+				msg = res.getString(R.string.stats_toast_rattlethecage_tie);
 				break;
 			case WORSE:
-				msg = "Worse than your best.  stop falling beehind";
+				msg = res.getString(R.string.stats_toast_rattlethecage_worse);
 				break;
 			case BETTER:
-				msg = "BEEEEEEEEEEEEEEEEEEEEEEEEEEEAUTIFUL";
+				msg = res.getString(R.string.stats_toast_rattlethecage_better);
 				break;
 			}
 			t = Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG);
@@ -185,13 +187,13 @@ StatsClearPrefsDialogFragment.StatsClearPrefsDialogFragmentListener{
 			switch(result)
 			{
 			case TIE:
-				msg = "Tied.  Meh";
+				msg = res.getString(R.string.stats_toast_abcswithnic_tie);
 				break;
 			case WORSE:
-				msg = "Can\nt even beat your best score.  can you spell failure?  Because your parents sure did make one.";
+				msg = res.getString(R.string.stats_toast_abcswithnic_worse);
 				break;
 			case BETTER:
-				msg = "New Best Score!  You can spell!  Wow!  So surprising!";
+				msg = res.getString(R.string.stats_toast_abcswithnic_better);
 				break;
 			}
 			t = Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG);
@@ -202,13 +204,13 @@ StatsClearPrefsDialogFragment.StatsClearPrefsDialogFragmentListener{
 			switch(result)
 			{
 			case TIE:
-				msg = "You watched it same amount of times as your most.  Original.";
+				msg = res.getString(R.string.stats_toast_cageclues_tie);
 				break;
 			case WORSE:
-				msg = "Are you sure you watched it enough times?";
+				msg = res.getString(R.string.stats_toast_cageclues_worse);
 				break;
 			case BETTER:
-				msg = "You should watch it more.  Just in case.";
+				msg = res.getString(R.string.stats_toast_cageclues_better);
 				break;
 			}
 			t = Toast.makeText(getBaseContext(), msg, Toast.LENGTH_LONG);
