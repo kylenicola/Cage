@@ -77,5 +77,9 @@
     
     <!-- Abcs with Nic -->
 	<string name="abcs_intro_info">Type along the Abc\'s while\n Nic&#8230;\'sings\' it</string>
+	<string name="abcs_question">WHAT DID NICOLAS CAGE LOSE?</string>
+	<string name="abcs_answer_one">His Hand</string>
+	<string name="abcs_answer_two">His Bride</string>
+	<string name="abcs_answer_three">His Self-Respect As An Actor</string>
 
 </resources>
